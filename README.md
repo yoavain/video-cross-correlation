@@ -1,2 +1,2 @@
 # video-cross-correlation
-Calculate video cross-correlation using its audio
+Calculate delay between 2 video files using cross-correlation calculation of their audio
