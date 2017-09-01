@@ -35,8 +35,8 @@
     <Reference Include="CrossCorrelation">
       <HintPath>libs\CrossCorrelation\CrossCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio">
-      <HintPath>libs\CrossCorrelation\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.2\lib\net35\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="NAudio.WindowsMediaFormat">
       <HintPath>libs\CrossCorrelation\NAudio.WindowsMediaFormat.dll</HintPath>
@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\LogicExecutor.cs" />
+    <Compile Include="Logic\LogicResult.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +76,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

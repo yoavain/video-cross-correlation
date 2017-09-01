@@ -8,7 +8,7 @@ namespace VideoCrossCorrelation.Logic
 {
     internal class LogicExecutor
     {
-        public string ExecuteProcess(string processName,string workingDir, string args)
+        private string ExecuteProcess(string processName,string workingDir, string args)
         {
             var output = new StringBuilder();
             var proc = new Process
@@ -88,7 +88,7 @@ namespace VideoCrossCorrelation.Logic
             return !"Error".Equals(mergeOutput);
         }
 
-        public double? RunLogic(string videoFile1, string videoFile2, double start, double duration)
+        public LogicResult RunLogic(string videoFile1, string videoFile2, double start, double duration)
         {
             var audioFile1 = Path.GetTempPath() + Guid.NewGuid() + "_audioFile1.wav";
             var audioFile2 = Path.GetTempPath() + Guid.NewGuid() + "audioFile2.wav";
@@ -100,7 +100,7 @@ namespace VideoCrossCorrelation.Logic
             var extract1 = ExtractAudioFromVideo(videoFile1, audioFile1, start, duration, 1, 22050);
             var extract2 = ExtractAudioFromVideo(videoFile2, audioFile2, start, duration, 1, 22050);
             if (!(extract1 && extract2)) {
-                return null;
+                return LogicResult.FailLogicResult("Failed to extract one or more audio from video files");
             }
 
             // Normalize
@@ -108,16 +108,18 @@ namespace VideoCrossCorrelation.Logic
             var normalize2 = NormalizeAudio(audioFile2, normalizedAudioFile2);
             if (!(normalize1 && normalize2))
             {
-                return null;
+                return LogicResult.FailLogicResult("Failed to normalize one or more audio files");
             }
 
             var crossCorrelationResult = ExecuteCrossCorrelation(normalizedAudioFile1, normalizedAudioFile2);
             if (crossCorrelationResult != null)
             {
-                int delay = (int)Math.Round((crossCorrelationResult ?? 0) * 1000);
-                MergeAudioWithDelay(normalizedAudioFile1, normalizedAudioFile2, mergedAudioFile, delay);
+                var delay = crossCorrelationResult ?? 0;
+                int delayMillis = (int)Math.Round(delay * 1000);
+                bool merge = MergeAudioWithDelay(normalizedAudioFile1, normalizedAudioFile2, mergedAudioFile, delayMillis);
+                return LogicResult.SuccessLogicResult(delay, merge ? mergedAudioFile : null);
             }
-            return crossCorrelationResult;
+            return LogicResult.FailLogicResult("Failed to calculate audio cross-correlation");
         }
     }
 }
