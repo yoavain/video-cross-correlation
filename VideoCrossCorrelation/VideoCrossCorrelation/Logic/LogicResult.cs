@@ -21,6 +21,7 @@ namespace VideoCrossCorrelation.Logic
             _success = success;
             _delay = delay;
             _mergedAudioFile = mergedAudioFile;
+            _errorMessage = errorMessage;
         }
 
         public static LogicResult SuccessLogicResult(double delay, string mergedAudioFile)
