@@ -28,6 +28,7 @@ namespace VideoCrossCorrelation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog.RestoreDirectory = true;
             openFileDialog.Filter = videoFilter;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -38,6 +39,7 @@ namespace VideoCrossCorrelation
 
         private void button2_Click(object sender, EventArgs e)
         {
+            openFileDialog.RestoreDirectory = true;
             openFileDialog.Filter = videoFilter;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -61,7 +63,8 @@ namespace VideoCrossCorrelation
             var result = le.RunLogic(video1TextBox.Text, video2TextBox.Text, Double.Parse(startTimeTextBox.Text), Double.Parse(durationTextBox.Text));
             if (result != null)
             {
-                resultTextBox.Text = result.ToString();
+                resultTextBox.Text = string.Format("{0:0.000}", result);
+                unitLabel.Visible = true;
             }
         }
 

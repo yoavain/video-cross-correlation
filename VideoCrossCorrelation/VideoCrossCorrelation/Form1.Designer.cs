@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.resultTextBox = new System.Windows.Forms.TextBox();
-            this.executeButton = new System.Windows.Forms.Button();
             this.video2TextBox = new System.Windows.Forms.TextBox();
             this.video2Button = new System.Windows.Forms.Button();
             this.video1TextBox = new System.Windows.Forms.TextBox();
             this.video1Button = new System.Windows.Forms.Button();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
+            this.executeButton = new System.Windows.Forms.Button();
             this.ExecutePanel = new System.Windows.Forms.Panel();
             this.configurationPanel = new System.Windows.Forms.Panel();
-            this.startTimeTextBox = new System.Windows.Forms.TextBox();
-            this.durationTextBox = new System.Windows.Forms.TextBox();
-            this.startTimeLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
+            this.startTimeLabel = new System.Windows.Forms.Label();
+            this.durationTextBox = new System.Windows.Forms.TextBox();
+            this.startTimeTextBox = new System.Windows.Forms.TextBox();
+            this.unitLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ExecutePanel.SuspendLayout();
             this.configurationPanel.SuspendLayout();
@@ -58,24 +59,6 @@
             this.panel1.Size = new System.Drawing.Size(525, 189);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // resultTextBox
-            // 
-            this.resultTextBox.Location = new System.Drawing.Point(165, 36);
-            this.resultTextBox.Name = "resultTextBox";
-            this.resultTextBox.Size = new System.Drawing.Size(103, 20);
-            this.resultTextBox.TabIndex = 5;
-            // 
-            // executeButton
-            // 
-            this.executeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.executeButton.Location = new System.Drawing.Point(15, 33);
-            this.executeButton.Name = "executeButton";
-            this.executeButton.Size = new System.Drawing.Size(85, 33);
-            this.executeButton.TabIndex = 4;
-            this.executeButton.Text = "Calculate Delay";
-            this.executeButton.UseVisualStyleBackColor = true;
-            this.executeButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // video2TextBox
             // 
@@ -115,18 +98,40 @@
             this.video1Button.UseVisualStyleBackColor = true;
             this.video1Button.Click += new System.EventHandler(this.button1_Click);
             // 
+            // resultTextBox
+            // 
+            this.resultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultTextBox.Location = new System.Drawing.Point(166, 33);
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.Size = new System.Drawing.Size(103, 26);
+            this.resultTextBox.TabIndex = 5;
+            this.resultTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // executeButton
+            // 
+            this.executeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.executeButton.Location = new System.Drawing.Point(15, 26);
+            this.executeButton.Name = "executeButton";
+            this.executeButton.Size = new System.Drawing.Size(126, 40);
+            this.executeButton.TabIndex = 4;
+            this.executeButton.Text = "Calculate Delay";
+            this.executeButton.UseVisualStyleBackColor = true;
+            this.executeButton.Click += new System.EventHandler(this.button3_Click);
+            // 
             // ExecutePanel
             // 
             this.ExecutePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ExecutePanel.Controls.Add(this.unitLabel);
             this.ExecutePanel.Controls.Add(this.resultTextBox);
             this.ExecutePanel.Controls.Add(this.executeButton);
-            this.ExecutePanel.Location = new System.Drawing.Point(35, 270);
+            this.ExecutePanel.Location = new System.Drawing.Point(108, 267);
             this.ExecutePanel.Name = "ExecutePanel";
             this.ExecutePanel.Size = new System.Drawing.Size(350, 92);
             this.ExecutePanel.TabIndex = 1;
             // 
             // configurationPanel
             // 
+            this.configurationPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.configurationPanel.Controls.Add(this.durationLabel);
             this.configurationPanel.Controls.Add(this.startTimeLabel);
             this.configurationPanel.Controls.Add(this.durationTextBox);
@@ -135,33 +140,6 @@
             this.configurationPanel.Name = "configurationPanel";
             this.configurationPanel.Size = new System.Drawing.Size(230, 335);
             this.configurationPanel.TabIndex = 2;
-            // 
-            // startTimeTextBox
-            // 
-            this.startTimeTextBox.Location = new System.Drawing.Point(93, 44);
-            this.startTimeTextBox.Name = "startTimeTextBox";
-            this.startTimeTextBox.Size = new System.Drawing.Size(100, 20);
-            this.startTimeTextBox.TabIndex = 0;
-            this.startTimeTextBox.Text = "0";
-            this.startTimeTextBox.TextChanged += new System.EventHandler(this.startTimeTextBox_TextChanged);
-            // 
-            // durationTextBox
-            // 
-            this.durationTextBox.Location = new System.Drawing.Point(93, 88);
-            this.durationTextBox.Name = "durationTextBox";
-            this.durationTextBox.Size = new System.Drawing.Size(100, 20);
-            this.durationTextBox.TabIndex = 1;
-            this.durationTextBox.Text = "60";
-            this.durationTextBox.TextChanged += new System.EventHandler(this.durationTextBox_TextChanged);
-            // 
-            // startTimeLabel
-            // 
-            this.startTimeLabel.AutoSize = true;
-            this.startTimeLabel.Location = new System.Drawing.Point(7, 47);
-            this.startTimeLabel.Name = "startTimeLabel";
-            this.startTimeLabel.Size = new System.Drawing.Size(81, 13);
-            this.startTimeLabel.TabIndex = 2;
-            this.startTimeLabel.Text = "Start Time [sec]";
             // 
             // durationLabel
             // 
@@ -172,16 +150,56 @@
             this.durationLabel.TabIndex = 3;
             this.durationLabel.Text = "Duration [sec]";
             // 
+            // startTimeLabel
+            // 
+            this.startTimeLabel.AutoSize = true;
+            this.startTimeLabel.Location = new System.Drawing.Point(7, 47);
+            this.startTimeLabel.Name = "startTimeLabel";
+            this.startTimeLabel.Size = new System.Drawing.Size(81, 13);
+            this.startTimeLabel.TabIndex = 2;
+            this.startTimeLabel.Text = "Start Time [sec]";
+            // 
+            // durationTextBox
+            // 
+            this.durationTextBox.Location = new System.Drawing.Point(93, 88);
+            this.durationTextBox.Name = "durationTextBox";
+            this.durationTextBox.Size = new System.Drawing.Size(50, 20);
+            this.durationTextBox.TabIndex = 1;
+            this.durationTextBox.Text = "60";
+            this.durationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.durationTextBox.TextChanged += new System.EventHandler(this.durationTextBox_TextChanged);
+            // 
+            // startTimeTextBox
+            // 
+            this.startTimeTextBox.Location = new System.Drawing.Point(93, 44);
+            this.startTimeTextBox.Name = "startTimeTextBox";
+            this.startTimeTextBox.Size = new System.Drawing.Size(50, 20);
+            this.startTimeTextBox.TabIndex = 0;
+            this.startTimeTextBox.Text = "0";
+            this.startTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startTimeTextBox.TextChanged += new System.EventHandler(this.startTimeTextBox_TextChanged);
+            // 
+            // unitLabel
+            // 
+            this.unitLabel.Visible = false;
+            this.unitLabel.AutoSize = true;
+            this.unitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unitLabel.Location = new System.Drawing.Point(273, 35);
+            this.unitLabel.Name = "unitLabel";
+            this.unitLabel.Size = new System.Drawing.Size(47, 20);
+            this.unitLabel.TabIndex = 6;
+            this.unitLabel.Text = "[sec]";
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1003, 475);
+            this.ClientSize = new System.Drawing.Size(853, 416);
             this.Controls.Add(this.configurationPanel);
             this.Controls.Add(this.ExecutePanel);
             this.Controls.Add(this.panel1);
             this.Name = "InputForm";
-            this.Text = "Form1";
+            this.Text = "Video Cross-Correlation Calculator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -208,6 +226,7 @@
         private System.Windows.Forms.Label startTimeLabel;
         private System.Windows.Forms.TextBox durationTextBox;
         private System.Windows.Forms.TextBox startTimeTextBox;
+        private System.Windows.Forms.Label unitLabel;
     }
 }
 
