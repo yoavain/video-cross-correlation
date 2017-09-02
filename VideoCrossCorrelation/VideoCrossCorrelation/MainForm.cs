@@ -8,7 +8,7 @@ using NAudio.Wave.SampleProviders;
 
 namespace VideoCrossCorrelation
 {
-    public partial class InputForm : Form
+    public partial class InputForm : MetroFramework.Forms.MetroForm
     {
         private OpenFileDialog openFileDialog = new OpenFileDialog();
         private readonly string videoFilter = "Video files (*.mkv, *.mp4, *.avi, *.flv, *.webm, *.mpeg, *.mpg, *.mov) | *.mkv; *.mp4; *.avi; *.flv; *.webm; *.mpeg; *.mpg; *.mov";
@@ -257,6 +257,11 @@ namespace VideoCrossCorrelation
             {
 //                trackBarPosition.Value = 0;
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
