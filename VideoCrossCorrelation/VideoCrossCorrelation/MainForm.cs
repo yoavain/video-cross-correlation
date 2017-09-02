@@ -40,7 +40,7 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video1TextBox.Text = openFileDialog.FileName;
-                updateButton3State();
+                updateExecuteButtonState();
             }
         }
 
@@ -51,11 +51,11 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video2TextBox.Text = openFileDialog.FileName;
-                updateButton3State();
+                updateExecuteButtonState();
             }
         }
 
-        private void updateButton3State()
+        private void updateExecuteButtonState()
         {
             double d;
             executeButton.Enabled = !string.IsNullOrEmpty(video1TextBox.Text) && 
@@ -93,7 +93,7 @@ namespace VideoCrossCorrelation
             {
                 this.startTimeTextBox.ForeColor = Color.Red;
             }
-            updateButton3State();
+            updateExecuteButtonState();
         }
 
         private void durationTextBox_TextChanged(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace VideoCrossCorrelation
             {
                 durationTextBox.ForeColor = Color.Red;
             }
-            updateButton3State();
+            updateExecuteButtonState();
         }
 
         private void playButton_Click(object sender, EventArgs e)

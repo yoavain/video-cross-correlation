@@ -69,24 +69,23 @@
             this.panel1.Controls.Add(this.video2Button);
             this.panel1.Controls.Add(this.video1TextBox);
             this.panel1.Controls.Add(this.video1Button);
-            this.panel1.Location = new System.Drawing.Point(35, 43);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(525, 189);
+            this.panel1.Size = new System.Drawing.Size(503, 161);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // video2TextBox
             // 
-            this.video2TextBox.Location = new System.Drawing.Point(143, 125);
+            this.video2TextBox.Location = new System.Drawing.Point(143, 106);
             this.video2TextBox.Name = "video2TextBox";
             this.video2TextBox.Size = new System.Drawing.Size(347, 20);
             this.video2TextBox.TabIndex = 3;
-            this.video2TextBox.Text = "C:\\Users\\YOAVV~1\\AppData\\Local\\Temp\\test-cross\\p-1sec.mkv";
             // 
             // video2Button
             // 
             this.video2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.video2Button.Location = new System.Drawing.Point(27, 110);
+            this.video2Button.Location = new System.Drawing.Point(27, 91);
             this.video2Button.Name = "video2Button";
             this.video2Button.Size = new System.Drawing.Size(85, 49);
             this.video2Button.TabIndex = 2;
@@ -96,16 +95,15 @@
             // 
             // video1TextBox
             // 
-            this.video1TextBox.Location = new System.Drawing.Point(143, 43);
+            this.video1TextBox.Location = new System.Drawing.Point(143, 38);
             this.video1TextBox.Name = "video1TextBox";
             this.video1TextBox.Size = new System.Drawing.Size(347, 20);
             this.video1TextBox.TabIndex = 1;
-            this.video1TextBox.Text = "C:\\Users\\YOAVV~1\\AppData\\Local\\Temp\\test-cross\\p-5sec.mkv";
             // 
             // video1Button
             // 
             this.video1Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.video1Button.Location = new System.Drawing.Point(27, 26);
+            this.video1Button.Location = new System.Drawing.Point(27, 21);
             this.video1Button.Name = "video1Button";
             this.video1Button.Size = new System.Drawing.Size(85, 49);
             this.video1Button.TabIndex = 0;
@@ -124,6 +122,7 @@
             // 
             // executeButton
             // 
+            this.executeButton.Enabled = false;
             this.executeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.executeButton.Location = new System.Drawing.Point(15, 26);
             this.executeButton.Name = "executeButton";
@@ -139,7 +138,7 @@
             this.ExecutePanel.Controls.Add(this.unitLabel);
             this.ExecutePanel.Controls.Add(this.resultTextBox);
             this.ExecutePanel.Controls.Add(this.executeButton);
-            this.ExecutePanel.Location = new System.Drawing.Point(63, 267);
+            this.ExecutePanel.Location = new System.Drawing.Point(12, 195);
             this.ExecutePanel.Name = "ExecutePanel";
             this.ExecutePanel.Size = new System.Drawing.Size(350, 92);
             this.ExecutePanel.TabIndex = 1;
@@ -162,9 +161,9 @@
             this.configurationPanel.Controls.Add(this.startTimeLabel);
             this.configurationPanel.Controls.Add(this.durationTextBox);
             this.configurationPanel.Controls.Add(this.startTimeTextBox);
-            this.configurationPanel.Location = new System.Drawing.Point(591, 43);
+            this.configurationPanel.Location = new System.Drawing.Point(546, 12);
             this.configurationPanel.Name = "configurationPanel";
-            this.configurationPanel.Size = new System.Drawing.Size(230, 189);
+            this.configurationPanel.Size = new System.Drawing.Size(183, 161);
             this.configurationPanel.TabIndex = 2;
             // 
             // durationLabel
@@ -248,7 +247,7 @@
             this.playerControlPanel.Controls.Add(this.playButton);
             this.playerControlPanel.Controls.Add(this.stopButton);
             this.playerControlPanel.Controls.Add(this.pauseButton);
-            this.playerControlPanel.Location = new System.Drawing.Point(500, 267);
+            this.playerControlPanel.Location = new System.Drawing.Point(408, 195);
             this.playerControlPanel.Name = "playerControlPanel";
             this.playerControlPanel.Size = new System.Drawing.Size(321, 92);
             this.playerControlPanel.TabIndex = 6;
@@ -304,7 +303,7 @@
             this.waveformPainter1.ForeColor = System.Drawing.Color.ForestGreen;
             this.waveformPainter1.Location = new System.Drawing.Point(15, 20);
             this.waveformPainter1.Name = "waveformPainter1";
-            this.waveformPainter1.Size = new System.Drawing.Size(752, 60);
+            this.waveformPainter1.Size = new System.Drawing.Size(683, 60);
             this.waveformPainter1.TabIndex = 19;
             this.waveformPainter1.Text = "waveformPainter1";
             // 
@@ -316,26 +315,26 @@
             this.waveformPainter2.ForeColor = System.Drawing.Color.ForestGreen;
             this.waveformPainter2.Location = new System.Drawing.Point(15, 95);
             this.waveformPainter2.Name = "waveformPainter2";
-            this.waveformPainter2.Size = new System.Drawing.Size(752, 60);
+            this.waveformPainter2.Size = new System.Drawing.Size(683, 60);
             this.waveformPainter2.TabIndex = 19;
             this.waveformPainter2.Text = "waveformPainter2";
             // 
             // waveFormPanel
             // 
-            this.waveFormPanel.Visible = false;
             this.waveFormPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.waveFormPanel.Controls.Add(this.waveformPainter2);
             this.waveFormPanel.Controls.Add(this.waveformPainter1);
-            this.waveFormPanel.Location = new System.Drawing.Point(35, 391);
+            this.waveFormPanel.Location = new System.Drawing.Point(12, 310);
             this.waveFormPanel.Name = "waveFormPanel";
-            this.waveFormPanel.Size = new System.Drawing.Size(786, 173);
+            this.waveFormPanel.Size = new System.Drawing.Size(717, 173);
             this.waveFormPanel.TabIndex = 7;
+            this.waveFormPanel.Visible = false;
             // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(853, 591);
+            this.ClientSize = new System.Drawing.Size(740, 497);
             this.Controls.Add(this.waveFormPanel);
             this.Controls.Add(this.playerControlPanel);
             this.Controls.Add(this.configurationPanel);
