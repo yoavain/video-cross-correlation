@@ -389,7 +389,7 @@ namespace VideoCrossCorrelation
             this.darkModeToggle.TabIndex = 5;
             this.darkModeToggle.Text = "Off";
             this.darkModeToggle.UseVisualStyleBackColor = true;
-            this.darkModeToggle.CheckedChanged += new System.EventHandler(this.metroToggle1_CheckedChanged);
+            this.darkModeToggle.CheckedChanged += new System.EventHandler(this.darkModeToggle_CheckedChanged);
             // 
             // colorComboBox
             // 

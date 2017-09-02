@@ -246,13 +246,8 @@ namespace VideoCrossCorrelation
             if (waveOut != null && audioFileReader != null)
             {
                 TimeSpan currentTime = (waveOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : audioFileReader.CurrentTime;
-//                trackBarPosition.Value = Math.Min(trackBarPosition.Maximum, (int)(100 * currentTime.TotalSeconds / audioFileReader.TotalTime.TotalSeconds));
                 labelCurrentTime.Text = String.Format("{0:00}:{1:00}", (int)currentTime.TotalMinutes,
                     currentTime.Seconds);
-            }
-            else
-            {
-//                trackBarPosition.Value = 0;
             }
         }
 
@@ -271,7 +266,7 @@ namespace VideoCrossCorrelation
             }
         }
 
-        private void metroToggle1_CheckedChanged(object sender, EventArgs e)
+        private void darkModeToggle_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as MetroToggle).Text == "On")
             {
@@ -292,7 +287,6 @@ namespace VideoCrossCorrelation
         {
             metroStyleManager.Theme = Properties.Settings.Default.MetroTheme;
             metroStyleManager.Style = Properties.Settings.Default.MetroColor;
-            
         }
     }
 }
