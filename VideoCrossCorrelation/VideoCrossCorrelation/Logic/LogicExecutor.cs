@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -43,7 +44,12 @@ namespace VideoCrossCorrelation.Logic
 
         private string ExecuteFfmpeg(string args)
         {
-            return ExecuteProcess("ffmpeg.exe", Directory.GetCurrentDirectory() + @"\libs\", args);
+            return ExecuteProcess("ffmpeg.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args);
+        }
+
+        private string ExecuteFfprobe(string args)
+        {
+            return ExecuteProcess("ffprobe.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args);
         }
 
         private static double? ExecuteCrossCorrelation(string audioFile, string refAudioFile)
@@ -86,6 +92,61 @@ namespace VideoCrossCorrelation.Logic
             var mergeOutput = ExecuteFfmpeg(string.Format("-i \"{0}\" -i \"{1}\" -filter_complex \"[0][1]amerge[aout];[aout]adelay={2}[adelay]\" -map \"[adelay]\" \"{3}\"",
                 inputAudioFile1, inputAudioFile2, delayStr, outputAudioFile));
             return !"Error".Equals(mergeOutput);
+        }
+
+        public Dictionary<string, string> GetAudioStreams(string inputVideoFile)
+        {
+            var ffprobeOutput = ExecuteFfprobe(string.Format("-v 0 -select_streams a -show_entries stream=index,codec_type:stream_tags=title,language -of compact \"{0}\"", inputVideoFile));
+            if ("Error".Equals(ffprobeOutput))
+            {
+                return null;
+            }
+
+            var result = new Dictionary<string, string>();
+
+            // Parse output
+            using (StringReader reader = new StringReader(ffprobeOutput))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    const string idPattern = @"index=(?<id>\d+)";
+                    var idRegex = new Regex(idPattern);
+                    var idMatch = idRegex.Match(line);
+                    var id = idMatch.Groups["id"].Value;
+                    if (string.IsNullOrEmpty(id))
+                    {
+                        continue;
+                    }
+
+                    const string languagePattern = @"tag:language=(?<lang>[a-z]+)";
+                    var languageRegex = new Regex(languagePattern);
+                    var languageMatch = languageRegex.Match(line);
+                    var language = languageMatch.Groups["lang"].Value;
+
+                    const string titlePattern = @"tag:title=(?<title>.*)";
+                    var titleRegex = new Regex(titlePattern);
+                    var titleMatch = titleRegex.Match(line);
+                    var title = titleMatch.Groups["title"].Value;
+
+                    var streamName = "";
+                    if (string.IsNullOrEmpty(title))
+                    {
+                        streamName = title;
+                    }
+                    if (string.IsNullOrEmpty(language))
+                    {
+                        streamName += "[" + language + "]";
+                    }
+                    if (string.IsNullOrEmpty(streamName))
+                    {
+                        streamName = "unknown";
+                    }
+
+                    result.Add(id, streamName);
+                }
+            }
+            return result;
         }
 
         public LogicResult RunLogic(string videoFile1, string videoFile2, double start, double duration)

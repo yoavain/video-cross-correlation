@@ -5,6 +5,8 @@ using VideoCrossCorrelation.Logic;
 using NAudio;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using MetroFramework;
+using MetroFramework.Controls;
 
 namespace VideoCrossCorrelation
 {
@@ -13,23 +15,17 @@ namespace VideoCrossCorrelation
         private OpenFileDialog openFileDialog = new OpenFileDialog();
         private readonly string videoFilter = "Video files (*.mkv, *.mp4, *.avi, *.flv, *.webm, *.mpeg, *.mpg, *.mov) | *.mkv; *.mp4; *.avi; *.flv; *.webm; *.mpeg; *.mpg; *.mov";
 
+        private LogicExecutor logicExecutor = new LogicExecutor();
+
         private string mergedAudioFile = null;
         private IWavePlayer waveOut;
         private AudioFileReader audioFileReader;
 
-
         public InputForm()
         {
             InitializeComponent();
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+            StyleManager = metroStyleManager;
 
         }
 
@@ -40,6 +36,7 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video1TextBox.Text = openFileDialog.FileName;
+                //var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
                 updateExecuteButtonState();
             }
         }
@@ -51,6 +48,7 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video2TextBox.Text = openFileDialog.FileName;
+                //var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
                 updateExecuteButtonState();
             }
         }
@@ -66,7 +64,6 @@ namespace VideoCrossCorrelation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var logicExecutor = new LogicExecutor();
             var result = logicExecutor.RunLogic(video1TextBox.Text, video2TextBox.Text, Double.Parse(startTimeTextBox.Text), Double.Parse(durationTextBox.Text));
             if (result.Success)
             {
@@ -262,6 +259,40 @@ namespace VideoCrossCorrelation
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void InputForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default["MetroTheme"] = metroStyleManager.Theme;
+                Properties.Settings.Default["MetroColor"] = metroStyleManager.Style;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void metroToggle1_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as MetroToggle).Text == "On")
+            {
+                metroStyleManager.Theme = MetroThemeStyle.Dark;
+            }
+            else
+            {
+                metroStyleManager.Theme = MetroThemeStyle.Light;
+            }
+        }
+
+        private void colorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            metroStyleManager.Style = (MetroColorStyle)Enum.Parse(typeof(MetroColorStyle), (sender as MetroComboBox).Text, true);
+        }
+
+        private void InputForm_Load(object sender, EventArgs e)
+        {
+            metroStyleManager.Theme = Properties.Settings.Default.MetroTheme;
+            metroStyleManager.Style = Properties.Settings.Default.MetroColor;
+            
         }
     }
 }

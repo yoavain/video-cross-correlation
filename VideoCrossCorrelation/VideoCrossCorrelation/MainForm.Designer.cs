@@ -1,4 +1,8 @@
-﻿namespace VideoCrossCorrelation
+﻿using MetroFramework;
+using System;
+using System.Windows.Forms;
+
+namespace VideoCrossCorrelation
 {
     partial class InputForm
     {
@@ -55,11 +59,19 @@
             this.waveformPainter1 = new NAudio.Gui.WaveformPainter();
             this.waveformPainter2 = new NAudio.Gui.WaveformPainter();
             this.waveFormPanel = new MetroFramework.Controls.MetroPanel();
+            this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
+            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.darkModeToggle = new MetroFramework.Controls.MetroToggle();
+            this.colorComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.colorLabel = new MetroFramework.Controls.MetroLabel();
+            this.darkModeLabel = new MetroFramework.Controls.MetroLabel();
             this.panel1.SuspendLayout();
             this.ExecutePanel.SuspendLayout();
             this.configurationPanel.SuspendLayout();
             this.playerControlPanel.SuspendLayout();
             this.waveFormPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).BeginInit();
+            this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -79,7 +91,6 @@
             this.panel1.VerticalScrollbarBarColor = true;
             this.panel1.VerticalScrollbarHighlightOnWheel = false;
             this.panel1.VerticalScrollbarSize = 10;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // video2TextBox
             // 
@@ -168,9 +179,9 @@
             this.configurationPanel.HorizontalScrollbarBarColor = true;
             this.configurationPanel.HorizontalScrollbarHighlightOnWheel = false;
             this.configurationPanel.HorizontalScrollbarSize = 10;
-            this.configurationPanel.Location = new System.Drawing.Point(548, 63);
+            this.configurationPanel.Location = new System.Drawing.Point(540, 154);
             this.configurationPanel.Name = "configurationPanel";
-            this.configurationPanel.Size = new System.Drawing.Size(183, 161);
+            this.configurationPanel.Size = new System.Drawing.Size(191, 70);
             this.configurationPanel.TabIndex = 2;
             this.configurationPanel.VerticalScrollbarBarColor = true;
             this.configurationPanel.VerticalScrollbarHighlightOnWheel = false;
@@ -179,7 +190,7 @@
             // durationLabel
             // 
             this.durationLabel.AutoSize = true;
-            this.durationLabel.Location = new System.Drawing.Point(7, 91);
+            this.durationLabel.Location = new System.Drawing.Point(7, 38);
             this.durationLabel.Name = "durationLabel";
             this.durationLabel.Size = new System.Drawing.Size(89, 19);
             this.durationLabel.TabIndex = 3;
@@ -188,7 +199,7 @@
             // startTimeLabel
             // 
             this.startTimeLabel.AutoSize = true;
-            this.startTimeLabel.Location = new System.Drawing.Point(7, 47);
+            this.startTimeLabel.Location = new System.Drawing.Point(7, 10);
             this.startTimeLabel.Name = "startTimeLabel";
             this.startTimeLabel.Size = new System.Drawing.Size(100, 19);
             this.startTimeLabel.TabIndex = 2;
@@ -196,7 +207,7 @@
             // 
             // durationTextBox
             // 
-            this.durationTextBox.Location = new System.Drawing.Point(111, 90);
+            this.durationTextBox.Location = new System.Drawing.Point(111, 37);
             this.durationTextBox.Name = "durationTextBox";
             this.durationTextBox.Size = new System.Drawing.Size(50, 20);
             this.durationTextBox.TabIndex = 1;
@@ -206,7 +217,7 @@
             // 
             // startTimeTextBox
             // 
-            this.startTimeTextBox.Location = new System.Drawing.Point(111, 46);
+            this.startTimeTextBox.Location = new System.Drawing.Point(111, 9);
             this.startTimeTextBox.Name = "startTimeTextBox";
             this.startTimeTextBox.Size = new System.Drawing.Size(50, 20);
             this.startTimeTextBox.TabIndex = 0;
@@ -346,11 +357,90 @@
             this.waveFormPanel.VerticalScrollbarSize = 10;
             this.waveFormPanel.Visible = false;
             // 
+            // metroStyleManager
+            // 
+            this.metroStyleManager.Owner = this;
+            this.metroStyleManager.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroStyleManager.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroPanel1
+            // 
+            this.metroPanel1.Controls.Add(this.darkModeToggle);
+            this.metroPanel1.Controls.Add(this.colorComboBox);
+            this.metroPanel1.Controls.Add(this.colorLabel);
+            this.metroPanel1.Controls.Add(this.darkModeLabel);
+            this.metroPanel1.HorizontalScrollbarBarColor = true;
+            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.HorizontalScrollbarSize = 10;
+            this.metroPanel1.Location = new System.Drawing.Point(540, 63);
+            this.metroPanel1.Name = "metroPanel1";
+            this.metroPanel1.Size = new System.Drawing.Size(191, 85);
+            this.metroPanel1.TabIndex = 4;
+            this.metroPanel1.VerticalScrollbarBarColor = true;
+            this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.VerticalScrollbarSize = 10;
+            // 
+            // darkModeToggle
+            // 
+            this.darkModeToggle.AutoSize = true;
+            this.darkModeToggle.Location = new System.Drawing.Point(99, 14);
+            this.darkModeToggle.Name = "darkModeToggle";
+            this.darkModeToggle.Size = new System.Drawing.Size(80, 17);
+            this.darkModeToggle.TabIndex = 5;
+            this.darkModeToggle.Text = "Off";
+            this.darkModeToggle.UseVisualStyleBackColor = true;
+            this.darkModeToggle.CheckedChanged += new System.EventHandler(this.metroToggle1_CheckedChanged);
+            // 
+            // colorComboBox
+            // 
+            this.colorComboBox.FormattingEnabled = true;
+            this.colorComboBox.ItemHeight = 23;
+            this.colorComboBox.Items.AddRange(new object[] {
+            "Black",
+            "White",
+            "Silver",
+            "Blue",
+            "Green",
+            "Lime",
+            "Teal",
+            "Orange",
+            "Brown",
+            "Pink",
+            "Magenta",
+            "Purple",
+            "Red",
+            "Yellow",
+            "Default"});
+            this.colorComboBox.Location = new System.Drawing.Point(99, 51);
+            this.colorComboBox.Name = "colorComboBox";
+            this.colorComboBox.Size = new System.Drawing.Size(83, 29);
+            this.colorComboBox.TabIndex = 4;
+            this.colorComboBox.SelectedIndexChanged += new System.EventHandler(this.colorComboBox_SelectedIndexChanged);
+            // 
+            // colorLabel
+            // 
+            this.colorLabel.AutoSize = true;
+            this.colorLabel.Location = new System.Drawing.Point(7, 51);
+            this.colorLabel.Name = "colorLabel";
+            this.colorLabel.Size = new System.Drawing.Size(42, 19);
+            this.colorLabel.TabIndex = 3;
+            this.colorLabel.Text = "Color";
+            // 
+            // darkModeLabel
+            // 
+            this.darkModeLabel.AutoSize = true;
+            this.darkModeLabel.Location = new System.Drawing.Point(7, 12);
+            this.darkModeLabel.Name = "darkModeLabel";
+            this.darkModeLabel.Size = new System.Drawing.Size(75, 19);
+            this.darkModeLabel.TabIndex = 2;
+            this.darkModeLabel.Text = "Dark Mode";
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 552);
+            this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.waveFormPanel);
             this.Controls.Add(this.playerControlPanel);
             this.Controls.Add(this.configurationPanel);
@@ -358,7 +448,8 @@
             this.Controls.Add(this.panel1);
             this.Name = "InputForm";
             this.Text = "Video Cross-Correlation Calculator";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputForm_FormClosing);
+            this.Load += new System.EventHandler(this.InputForm_Load);
             this.panel1.ResumeLayout(false);
             this.ExecutePanel.ResumeLayout(false);
             this.ExecutePanel.PerformLayout();
@@ -367,6 +458,9 @@
             this.playerControlPanel.ResumeLayout(false);
             this.playerControlPanel.PerformLayout();
             this.waveFormPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager)).EndInit();
+            this.metroPanel1.ResumeLayout(false);
+            this.metroPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -398,6 +492,12 @@
         private MetroFramework.Controls.MetroPanel waveFormPanel;
         private NAudio.Gui.WaveformPainter waveformPainter1;
         private NAudio.Gui.WaveformPainter waveformPainter2;
+        private MetroFramework.Components.MetroStyleManager metroStyleManager;
+        private MetroFramework.Controls.MetroPanel metroPanel1;
+        private MetroFramework.Controls.MetroToggle darkModeToggle;
+        private MetroFramework.Controls.MetroComboBox colorComboBox;
+        private MetroFramework.Controls.MetroLabel colorLabel;
+        private MetroFramework.Controls.MetroLabel darkModeLabel;
     }
 }
 
