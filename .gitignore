@@ -1,4 +1,5 @@
-bin
-obj
+/VideoCrossCorrelation/VideoCrossCorrelation/bin
+/VideoCrossCorrelation/VideoCrossCorrelation/obj
 /VideoCrossCorrelation/.idea/.idea.VideoCrossCorrelation
 /VideoCrossCorrelation/.vs/VideoCrossCorrelation/v15
+/VideoCrossCorrelation/packages
