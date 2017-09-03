@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using VideoCrossCorrelation.Logic;
-using NAudio;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using MetroFramework;
@@ -12,14 +11,14 @@ namespace VideoCrossCorrelation
 {
     public partial class InputForm : MetroFramework.Forms.MetroForm
     {
-        private OpenFileDialog openFileDialog = new OpenFileDialog();
-        private readonly string videoFilter = "Video files (*.mkv, *.mp4, *.avi, *.flv, *.webm, *.mpeg, *.mpg, *.mov) | *.mkv; *.mp4; *.avi; *.flv; *.webm; *.mpeg; *.mpg; *.mov";
+        private readonly OpenFileDialog _openFileDialog = new OpenFileDialog();
+        private readonly string _videoFilter = "Video files (*.mkv, *.mp4, *.avi, *.flv, *.webm, *.mpeg, *.mpg, *.mov) | *.mkv; *.mp4; *.avi; *.flv; *.webm; *.mpeg; *.mpg; *.mov";
 
-        private LogicExecutor logicExecutor = new LogicExecutor();
+        private readonly LogicExecutor _logicExecutor = new LogicExecutor();
 
-        private string mergedAudioFile = null;
-        private IWavePlayer waveOut;
-        private AudioFileReader audioFileReader;
+        private string _mergedAudioFile;
+        private IWavePlayer _waveOut;
+        private AudioFileReader _audioFileReader;
 
         public InputForm()
         {
@@ -31,29 +30,29 @@ namespace VideoCrossCorrelation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = videoFilter;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            _openFileDialog.RestoreDirectory = true;
+            _openFileDialog.Filter = _videoFilter;
+            if (_openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                video1TextBox.Text = openFileDialog.FileName;
-                var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
-                updateExecuteButtonState();
+                video1TextBox.Text = _openFileDialog.FileName;
+                var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
+                UpdateExecuteButtonState();
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = videoFilter;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            _openFileDialog.RestoreDirectory = true;
+            _openFileDialog.Filter = _videoFilter;
+            if (_openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                video2TextBox.Text = openFileDialog.FileName;
-                var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
-                updateExecuteButtonState();
+                video2TextBox.Text = _openFileDialog.FileName;
+                var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
+                UpdateExecuteButtonState();
             }
         }
 
-        private void updateExecuteButtonState()
+        private void UpdateExecuteButtonState()
         {
             double d;
             executeButton.Enabled = !string.IsNullOrEmpty(video1TextBox.Text) && 
@@ -64,7 +63,7 @@ namespace VideoCrossCorrelation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var result = logicExecutor.RunLogic(video1TextBox.Text, video2TextBox.Text, Double.Parse(startTimeTextBox.Text), Double.Parse(durationTextBox.Text));
+            var result = _logicExecutor.RunLogic(video1TextBox.Text, video2TextBox.Text, double.Parse(startTimeTextBox.Text), double.Parse(durationTextBox.Text));
             if (result.Success)
             {
                 resultTextBox.Text = string.Format("{0:0.000}", result.Delay);
@@ -72,7 +71,7 @@ namespace VideoCrossCorrelation
                 
                 if (result.MergedAudioFile != null)
                 {
-                    mergedAudioFile = result.MergedAudioFile;
+                    _mergedAudioFile = result.MergedAudioFile;
                     playerControlPanel.Visible = true;
                     waveFormPanel.Visible = true;
                 }
@@ -84,13 +83,13 @@ namespace VideoCrossCorrelation
             double d;
             if (double.TryParse(startTimeTextBox.Text, out d))
             {
-                this.startTimeTextBox.ForeColor = Color.Black;
+                startTimeTextBox.ForeColor = Color.Black;
             }
             else
             {
-                this.startTimeTextBox.ForeColor = Color.Red;
+                startTimeTextBox.ForeColor = Color.Red;
             }
-            updateExecuteButtonState();
+            UpdateExecuteButtonState();
         }
 
         private void durationTextBox_TextChanged(object sender, EventArgs e)
@@ -104,25 +103,25 @@ namespace VideoCrossCorrelation
             {
                 durationTextBox.ForeColor = Color.Red;
             }
-            updateExecuteButtonState();
+            UpdateExecuteButtonState();
         }
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            if (waveOut != null)
+            if (_waveOut != null)
             {
-                if (waveOut.PlaybackState == PlaybackState.Playing)
+                if (_waveOut.PlaybackState == PlaybackState.Playing)
                 {
                     return;
                 }
-                else if (waveOut.PlaybackState == PlaybackState.Paused)
+                else if (_waveOut.PlaybackState == PlaybackState.Paused)
                 {
-                    waveOut.Play();
+                    _waveOut.Play();
                     return;
                 }
             }
 
-            if (String.IsNullOrEmpty(mergedAudioFile))
+            if (String.IsNullOrEmpty(_mergedAudioFile))
             {
                 return;
             }
@@ -133,43 +132,43 @@ namespace VideoCrossCorrelation
             }
             catch (Exception driverCreateException)
             {
-                MessageBox.Show(String.Format("{0}", driverCreateException.Message));
+                MessageBox.Show(string.Format("{0}", driverCreateException.Message));
                 return;
             }
 
             ISampleProvider sampleProvider;
             try
             {
-                sampleProvider = CreateInputStream(mergedAudioFile);
+                sampleProvider = CreateInputStream(_mergedAudioFile);
             }
             catch (Exception createException)
             {
-                MessageBox.Show(String.Format("{0}", createException.Message), "Error Loading File");
+                MessageBox.Show(string.Format("{0}", createException.Message), "Error Loading File");
                 return;
             }
 
 
-            labelTotalTime.Text = String.Format("{0:00}:{1:00}", (int)audioFileReader.TotalTime.TotalMinutes,
-                audioFileReader.TotalTime.Seconds);
+            labelTotalTime.Text = String.Format("{0:00}:{1:00}", (int)_audioFileReader.TotalTime.TotalMinutes,
+                _audioFileReader.TotalTime.Seconds);
 
             try
             {
-                waveOut.Init(sampleProvider);
+                _waveOut.Init(sampleProvider);
             }
             catch (Exception initException)
             {
-                MessageBox.Show(String.Format("{0}", initException.Message), "Error Initializing Output");
+                MessageBox.Show(string.Format("{0}", initException.Message), "Error Initializing Output");
                 return;
             }
 
-            waveOut.Play();
+            _waveOut.Play();
         }
 
         private void CreateWaveOut()
         {
             CloseWaveOut();
-            waveOut = new WaveOut();
-            waveOut.PlaybackStopped += OnPlaybackStopped;
+            _waveOut = new WaveOut();
+            _waveOut.PlaybackStopped += OnPlaybackStopped;
         }
 
         void OnPlaybackStopped(object sender, StoppedEventArgs e)
@@ -178,17 +177,17 @@ namespace VideoCrossCorrelation
             {
                 MessageBox.Show(e.Exception.Message, "Playback Device Error");
             }
-            if (audioFileReader != null)
+            if (_audioFileReader != null)
             {
-                audioFileReader.Position = 0;
+                _audioFileReader.Position = 0;
             }
         }
 
         private ISampleProvider CreateInputStream(string fileName)
         {
-            audioFileReader = new AudioFileReader(fileName);
+            _audioFileReader = new AudioFileReader(fileName);
 
-            var sampleChannel = new SampleChannel(audioFileReader, true);
+            var sampleChannel = new SampleChannel(_audioFileReader, true);
             sampleChannel.PreVolumeMeter += OnPreVolumeMeter;
             var postVolumeMeter = new MeteringSampleProvider(sampleChannel);
 
@@ -204,61 +203,56 @@ namespace VideoCrossCorrelation
 
         private void CloseWaveOut()
         {
-            if (waveOut != null)
+            if (_waveOut != null)
             {
-                waveOut.Stop();
+                _waveOut.Stop();
             }
-            if (audioFileReader != null)
+            if (_audioFileReader != null)
             {
                 // this one really closes the file and ACM conversion
-                audioFileReader.Dispose();
+                _audioFileReader.Dispose();
                 //setVolumeDelegate = null;
-                audioFileReader = null;
+                _audioFileReader = null;
             }
-            if (waveOut != null)
+            if (_waveOut != null)
             {
-                waveOut.Dispose();
-                waveOut = null;
+                _waveOut.Dispose();
+                _waveOut = null;
             }
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
-            if (waveOut != null)
+            if (_waveOut != null)
             {
-                if (waveOut.PlaybackState == PlaybackState.Playing)
+                if (_waveOut.PlaybackState == PlaybackState.Playing)
                 {
-                    waveOut.Pause();
+                    _waveOut.Pause();
                 }
             }
         }
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            if (waveOut != null)
+            if (_waveOut != null)
             {
-                waveOut.Stop();
+                _waveOut.Stop();
             }
         }
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            if (waveOut != null && audioFileReader != null)
+            if (_waveOut != null && _audioFileReader != null)
             {
-                TimeSpan currentTime = (waveOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : audioFileReader.CurrentTime;
+                TimeSpan currentTime = (_waveOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : _audioFileReader.CurrentTime;
                 labelCurrentTime.Text = String.Format("{0:00}:{1:00}", (int)currentTime.TotalMinutes,
                     currentTime.Seconds);
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void InputForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal)
             {
                 Properties.Settings.Default["MetroTheme"] = metroStyleManager.Theme;
                 Properties.Settings.Default["MetroColor"] = metroStyleManager.Style;
