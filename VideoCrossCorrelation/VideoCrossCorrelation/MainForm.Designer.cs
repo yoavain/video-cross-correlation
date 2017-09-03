@@ -65,6 +65,8 @@ namespace VideoCrossCorrelation
             this.colorComboBox = new MetroFramework.Controls.MetroComboBox();
             this.colorLabel = new MetroFramework.Controls.MetroLabel();
             this.darkModeLabel = new MetroFramework.Controls.MetroLabel();
+            this.video1AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.video2AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
             this.panel1.SuspendLayout();
             this.ExecutePanel.SuspendLayout();
             this.configurationPanel.SuspendLayout();
@@ -77,6 +79,8 @@ namespace VideoCrossCorrelation
             // panel1
             // 
             this.panel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.video2AudioStreamComboBox);
+            this.panel1.Controls.Add(this.video1AudioStreamComboBox);
             this.panel1.Controls.Add(this.video2TextBox);
             this.panel1.Controls.Add(this.video2Button);
             this.panel1.Controls.Add(this.video1TextBox);
@@ -94,7 +98,7 @@ namespace VideoCrossCorrelation
             // 
             // video2TextBox
             // 
-            this.video2TextBox.Location = new System.Drawing.Point(143, 106);
+            this.video2TextBox.Location = new System.Drawing.Point(143, 91);
             this.video2TextBox.Name = "video2TextBox";
             this.video2TextBox.Size = new System.Drawing.Size(347, 20);
             this.video2TextBox.TabIndex = 3;
@@ -111,7 +115,7 @@ namespace VideoCrossCorrelation
             // 
             // video1TextBox
             // 
-            this.video1TextBox.Location = new System.Drawing.Point(143, 38);
+            this.video1TextBox.Location = new System.Drawing.Point(143, 21);
             this.video1TextBox.Name = "video1TextBox";
             this.video1TextBox.Size = new System.Drawing.Size(347, 20);
             this.video1TextBox.TabIndex = 1;
@@ -442,6 +446,30 @@ namespace VideoCrossCorrelation
             this.darkModeLabel.TabIndex = 2;
             this.darkModeLabel.Text = "Dark Mode";
             // 
+            // video1AudioStreamComboBox
+            // 
+            this.video1AudioStreamComboBox.Visible = false;
+            this.video1AudioStreamComboBox.Enabled = false;
+            this.video1AudioStreamComboBox.DataSource = video1ComboBoxItemsBindingSource;
+            this.video1AudioStreamComboBox.FormattingEnabled = true;
+            this.video1AudioStreamComboBox.ItemHeight = 23;
+            this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
+            this.video1AudioStreamComboBox.Name = "video1AudioStreamComboBox";
+            this.video1AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
+            this.video1AudioStreamComboBox.TabIndex = 4;
+            // 
+            // video2AudioStreamComboBox
+            // 
+            this.video2AudioStreamComboBox.Visible = false;
+            this.video2AudioStreamComboBox.Enabled = false;
+            this.video2AudioStreamComboBox.DataSource = video2ComboBoxItemsBindingSource;
+            this.video2AudioStreamComboBox.FormattingEnabled = true;
+            this.video2AudioStreamComboBox.ItemHeight = 23;
+            this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);
+            this.video2AudioStreamComboBox.Name = "video2AudioStreamComboBox";
+            this.video2AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
+            this.video2AudioStreamComboBox.TabIndex = 5;
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -506,6 +534,8 @@ namespace VideoCrossCorrelation
         private MetroFramework.Controls.MetroComboBox colorComboBox;
         private MetroFramework.Controls.MetroLabel colorLabel;
         private MetroFramework.Controls.MetroLabel darkModeLabel;
+        private MetroFramework.Controls.MetroComboBox video2AudioStreamComboBox;
+        private MetroFramework.Controls.MetroComboBox video1AudioStreamComboBox;
     }
 }
 

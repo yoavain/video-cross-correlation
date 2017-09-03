@@ -6,6 +6,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using MetroFramework;
 using MetroFramework.Controls;
+using System.Collections.Generic;
 
 namespace VideoCrossCorrelation
 {
@@ -20,12 +21,17 @@ namespace VideoCrossCorrelation
         private IWavePlayer _waveOut;
         private AudioFileReader _audioFileReader;
 
+        private BindingSource video1ComboBoxItemsBindingSource = new BindingSource();
+        private BindingSource video2ComboBoxItemsBindingSource = new BindingSource();
+
         public InputForm()
         {
             InitializeComponent();
 
             StyleManager = metroStyleManager;
 
+            video1ComboBoxItemsBindingSource.DataSource = new List<string>();
+            video2ComboBoxItemsBindingSource.DataSource = new List<string>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,6 +42,17 @@ namespace VideoCrossCorrelation
             {
                 video1TextBox.Text = _openFileDialog.FileName;
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
+                if (audioStreams.Count > 0)
+                {
+                    video1ComboBoxItemsBindingSource.DataSource = audioStreams.Keys;
+                    video1AudioStreamComboBox.SelectedIndex = 0;
+                    video1AudioStreamComboBox.Visible = true;
+                    if (audioStreams.Count > 1)
+                    {
+                        video1AudioStreamComboBox.Enabled = true;
+                    }
+
+                }
                 UpdateExecuteButtonState();
             }
         }
@@ -48,6 +65,17 @@ namespace VideoCrossCorrelation
             {
                 video2TextBox.Text = _openFileDialog.FileName;
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
+                if (audioStreams.Count > 0)
+                {
+                    video2ComboBoxItemsBindingSource.DataSource = audioStreams.Keys;
+                    video2AudioStreamComboBox.SelectedIndex = 0;
+                    video2AudioStreamComboBox.Visible = true;
+                    if (audioStreams.Count > 1)
+                    {
+                        video2AudioStreamComboBox.Enabled = true;
+                    }
+
+                }
                 UpdateExecuteButtonState();
             }
         }

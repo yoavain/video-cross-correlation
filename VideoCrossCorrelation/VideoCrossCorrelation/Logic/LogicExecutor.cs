@@ -192,7 +192,7 @@ namespace VideoCrossCorrelation.Logic
                     }
 
                     Log.Info(string.Format("Adding stream id {0} with name {1}", id, streamName));
-                    result.Add(id, streamName);
+                    result.Add(streamName, id);
                 }
             }
             Log.Info(string.Format("Found {0} audio stream{1} for {2}", result.Count, (result.Count > 1 ? "s" : ""), inputVideoFile));
