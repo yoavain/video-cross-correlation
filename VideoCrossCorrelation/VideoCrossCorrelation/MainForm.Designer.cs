@@ -35,11 +35,11 @@ namespace VideoCrossCorrelation
             this.components = new System.ComponentModel.Container();
             this.panel1 = new MetroFramework.Controls.MetroPanel();
             this.video2TextBox = new MetroFramework.Controls.MetroTextBox();
-            this.video2Button = new MetroFramework.Controls.MetroButton();
+            this.video2Button = new MetroFramework.Controls.MetroTile();
             this.video1TextBox = new MetroFramework.Controls.MetroTextBox();
-            this.video1Button = new MetroFramework.Controls.MetroButton();
+            this.video1Button = new MetroFramework.Controls.MetroTile();
             this.resultTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.executeButton = new MetroFramework.Controls.MetroButton();
+            this.executeButton = new MetroFramework.Controls.MetroTile();
             this.ExecutePanel = new MetroFramework.Controls.MetroPanel();
             this.unitLabel = new MetroFramework.Controls.MetroLabel();
             this.configurationPanel = new MetroFramework.Controls.MetroPanel();
@@ -47,9 +47,9 @@ namespace VideoCrossCorrelation
             this.startTimeLabel = new MetroFramework.Controls.MetroLabel();
             this.durationTextBox = new MetroFramework.Controls.MetroTextBox();
             this.startTimeTextBox = new MetroFramework.Controls.MetroTextBox();
-            this.playButton = new MetroFramework.Controls.MetroButton();
-            this.pauseButton = new MetroFramework.Controls.MetroButton();
-            this.stopButton = new MetroFramework.Controls.MetroButton();
+            this.playButton = new MetroFramework.Controls.MetroTile();
+            this.pauseButton = new MetroFramework.Controls.MetroTile();
+            this.stopButton = new MetroFramework.Controls.MetroTile();
             this.playerControlPanel = new MetroFramework.Controls.MetroPanel();
             this.labelTotalTimePrefix = new MetroFramework.Controls.MetroLabel();
             this.labelCurrentTimePrefix = new MetroFramework.Controls.MetroLabel();
@@ -106,6 +106,7 @@ namespace VideoCrossCorrelation
             this.video2Button.Size = new System.Drawing.Size(85, 49);
             this.video2Button.TabIndex = 2;
             this.video2Button.Text = "Video #2";
+            this.video2Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.video2Button.Click += new System.EventHandler(this.button2_Click);
             // 
             // video1TextBox
@@ -122,6 +123,7 @@ namespace VideoCrossCorrelation
             this.video1Button.Size = new System.Drawing.Size(85, 49);
             this.video1Button.TabIndex = 0;
             this.video1Button.Text = "Video #1";
+            this.video1Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.video1Button.Click += new System.EventHandler(this.button1_Click);
             // 
             // resultTextBox
@@ -140,6 +142,7 @@ namespace VideoCrossCorrelation
             this.executeButton.Size = new System.Drawing.Size(126, 40);
             this.executeButton.TabIndex = 4;
             this.executeButton.Text = "Calculate Delay";
+            this.executeButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.executeButton.Click += new System.EventHandler(this.button3_Click);
             // 
             // ExecutePanel
@@ -232,6 +235,7 @@ namespace VideoCrossCorrelation
             this.playButton.Size = new System.Drawing.Size(80, 28);
             this.playButton.TabIndex = 3;
             this.playButton.Text = "Play";
+            this.playButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // pauseButton
@@ -241,6 +245,7 @@ namespace VideoCrossCorrelation
             this.pauseButton.Size = new System.Drawing.Size(80, 28);
             this.pauseButton.TabIndex = 4;
             this.pauseButton.Text = "Pause";
+            this.pauseButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // stopButton
@@ -250,6 +255,7 @@ namespace VideoCrossCorrelation
             this.stopButton.Size = new System.Drawing.Size(80, 28);
             this.stopButton.TabIndex = 5;
             this.stopButton.Text = "Stop";
+            this.stopButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // playerControlPanel
@@ -469,12 +475,12 @@ namespace VideoCrossCorrelation
 
         #endregion
         private MetroFramework.Controls.MetroPanel panel1;
-        private MetroFramework.Controls.MetroButton video1Button;
+        private MetroFramework.Controls.MetroTile video1Button;
         private MetroFramework.Controls.MetroTextBox video1TextBox;
         private MetroFramework.Controls.MetroTextBox video2TextBox;
-        private MetroFramework.Controls.MetroButton video2Button;
+        private MetroFramework.Controls.MetroTile video2Button;
         private MetroFramework.Controls.MetroTextBox resultTextBox;
-        private MetroFramework.Controls.MetroButton executeButton;
+        private MetroFramework.Controls.MetroTile executeButton;
         private MetroFramework.Controls.MetroPanel ExecutePanel;
         private MetroFramework.Controls.MetroPanel configurationPanel;
         private MetroFramework.Controls.MetroLabel durationLabel;
@@ -482,9 +488,9 @@ namespace VideoCrossCorrelation
         private MetroFramework.Controls.MetroTextBox durationTextBox;
         private MetroFramework.Controls.MetroTextBox startTimeTextBox;
         private MetroFramework.Controls.MetroLabel unitLabel;
-        private MetroFramework.Controls.MetroButton playButton;
-        private MetroFramework.Controls.MetroButton pauseButton;
-        private MetroFramework.Controls.MetroButton stopButton;
+        private MetroFramework.Controls.MetroTile playButton;
+        private MetroFramework.Controls.MetroTile pauseButton;
+        private MetroFramework.Controls.MetroTile stopButton;
         private MetroFramework.Controls.MetroPanel playerControlPanel;
         private MetroFramework.Controls.MetroLabel labelTotalTimePrefix;
         private MetroFramework.Controls.MetroLabel labelCurrentTimePrefix;

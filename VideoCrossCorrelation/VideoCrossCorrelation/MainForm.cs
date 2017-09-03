@@ -282,5 +282,10 @@ namespace VideoCrossCorrelation
             metroStyleManager.Theme = Properties.Settings.Default.MetroTheme;
             metroStyleManager.Style = Properties.Settings.Default.MetroColor;
         }
+
+        private void metroTile1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
