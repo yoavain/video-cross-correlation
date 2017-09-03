@@ -77,9 +77,9 @@ namespace VideoCrossCorrelation.Logic
             return CrossCorrelation.CrossCorrelation.Run(audioFile, refAudioFile, "delay");
         }
 
-        private bool ExtractAudioFromVideo(string inputVideoFile, string outputAudioFile, double start, double duration, int channels, int samplingRate)
+        private bool ExtractAudioFromVideo(string inputVideoFile, int streamIndex, string outputAudioFile, double start, double duration, int channels, int samplingRate)
         {
-            var output = ExecuteFfmpeg(string.Format("-i \"{0}\" -y -vn -ss {1} -t {2} -ac {3} -ar {4} \"{5}\"", inputVideoFile, start, duration, channels, samplingRate, outputAudioFile));
+            var output = ExecuteFfmpeg(string.Format("-i \"{0}\" -map 0:{1} -y -vn -ss {2} -t {3} -ac {4} -ar {5} \"{6}\"", inputVideoFile, streamIndex, start, duration, channels, samplingRate, outputAudioFile));
             return !"Error".Equals(output);
         }
 
@@ -139,7 +139,7 @@ namespace VideoCrossCorrelation.Logic
             return true;
         }
 
-        public Dictionary<string, string> GetAudioStreams(string inputVideoFile)
+        public Dictionary<string, int> GetAudioStreams(string inputVideoFile)
         {
             Log.Info(string.Format("Getting audio streams for {0}", inputVideoFile));
             var ffprobeOutput = ExecuteFfprobe(string.Format("-v 0 -select_streams a -show_entries stream=index,codec_type:stream_tags=title,language -of compact \"{0}\"", inputVideoFile));
@@ -149,7 +149,7 @@ namespace VideoCrossCorrelation.Logic
                 return null;
             }
 
-            var result = new Dictionary<string, string>();
+            var result = new Dictionary<string, int>();
 
             // Parse output
             using (StringReader reader = new StringReader(ffprobeOutput))
@@ -160,10 +160,16 @@ namespace VideoCrossCorrelation.Logic
                     const string idPattern = @"index=(?<id>\d+)";
                     var idRegex = new Regex(idPattern);
                     var idMatch = idRegex.Match(line);
-                    var id = idMatch.Groups["id"].Value;
-                    if (string.IsNullOrEmpty(id))
+                    var idStr = idMatch.Groups["id"].Value;
+                    if (string.IsNullOrEmpty(idStr))
                     {
                         Log.Warn("Failed getting id for audio stream. Skipping");
+                        continue;
+                    }
+                    var parseOk = int.TryParse(idStr, out int id);
+                    if (!parseOk)
+                    {
+                        Log.Warn("Failed parsing id for audio stream. Skipping");
                         continue;
                     }
 
@@ -199,7 +205,7 @@ namespace VideoCrossCorrelation.Logic
             return result;
         }
 
-        public LogicResult RunLogic(string videoFile1, string videoFile2, double start, double duration)
+        public LogicResult RunLogic(string videoFile1, int video1StreamIndex, string videoFile2, int video2StreamIndex, double start, double duration)
         {
             Log.Info(string.Format("Starting logic for {0} and {1}", videoFile1, videoFile2));
 
@@ -210,8 +216,8 @@ namespace VideoCrossCorrelation.Logic
             var mergedAudioFile = Path.GetTempPath() + Guid.NewGuid() + "_mergedAudioFile.wav";
 
             // Extract audio
-            var extract1 = ExtractAudioFromVideo(videoFile1, audioFile1, start, duration, 1, 22050);
-            var extract2 = ExtractAudioFromVideo(videoFile2, audioFile2, start, duration, 1, 22050);
+            var extract1 = ExtractAudioFromVideo(videoFile1, video1StreamIndex, audioFile1, start, duration, 1, 22050);
+            var extract2 = ExtractAudioFromVideo(videoFile2, video2StreamIndex, audioFile2, start, duration, 1, 22050);
             if (!(extract1 && extract2)) {
                 Log.Error("Failed to extract one or more audio from video files");
                 return LogicResult.FailLogicResult("Failed to extract one or more audio from video files");

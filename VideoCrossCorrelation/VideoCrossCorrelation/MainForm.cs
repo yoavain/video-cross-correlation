@@ -21,6 +21,9 @@ namespace VideoCrossCorrelation
         private IWavePlayer _waveOut;
         private AudioFileReader _audioFileReader;
 
+        private Dictionary<string, int> video1AudioStreams;
+        private Dictionary<string, int> video2AudioStreams;
+
         private BindingSource video1ComboBoxItemsBindingSource = new BindingSource();
         private BindingSource video2ComboBoxItemsBindingSource = new BindingSource();
 
@@ -44,6 +47,7 @@ namespace VideoCrossCorrelation
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
                 if (audioStreams.Count > 0)
                 {
+                    video1AudioStreams = audioStreams;
                     video1ComboBoxItemsBindingSource.DataSource = audioStreams.Keys;
                     video1AudioStreamComboBox.SelectedIndex = 0;
                     video1AudioStreamComboBox.Visible = true;
@@ -51,7 +55,6 @@ namespace VideoCrossCorrelation
                     {
                         video1AudioStreamComboBox.Enabled = true;
                     }
-
                 }
                 UpdateExecuteButtonState();
             }
@@ -67,6 +70,7 @@ namespace VideoCrossCorrelation
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
                 if (audioStreams.Count > 0)
                 {
+                    video2AudioStreams = audioStreams;
                     video2ComboBoxItemsBindingSource.DataSource = audioStreams.Keys;
                     video2AudioStreamComboBox.SelectedIndex = 0;
                     video2AudioStreamComboBox.Visible = true;
@@ -74,7 +78,6 @@ namespace VideoCrossCorrelation
                     {
                         video2AudioStreamComboBox.Enabled = true;
                     }
-
                 }
                 UpdateExecuteButtonState();
             }
@@ -91,7 +94,9 @@ namespace VideoCrossCorrelation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var result = _logicExecutor.RunLogic(video1TextBox.Text, video2TextBox.Text, double.Parse(startTimeTextBox.Text), double.Parse(durationTextBox.Text));
+            video1AudioStreams.TryGetValue(video1AudioStreamComboBox.SelectedValue.ToString(), out int video1StreamIndex);
+            video2AudioStreams.TryGetValue(video2AudioStreamComboBox.SelectedValue.ToString(), out int video2StreamIndex);
+            var result = _logicExecutor.RunLogic(video1TextBox.Text, video1StreamIndex, video2TextBox.Text, video2StreamIndex, double.Parse(startTimeTextBox.Text), double.Parse(durationTextBox.Text));
             if (result.Success)
             {
                 resultTextBox.Text = string.Format("{0:0.000}", result.Delay);
