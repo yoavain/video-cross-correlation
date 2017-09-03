@@ -9,17 +9,18 @@ namespace VideoCrossCorrelation.Logic
 {
     internal class LogicExecutor
     {
-        private string ExecuteProcess(string processName,string workingDir, string args)
+        private string ExecuteProcess(string processName,string workingDir, string args, bool redirectOutput, bool redirectError)
         {
             var output = new StringBuilder();
             var proc = new Process
             {
                 StartInfo =
                 {
-                    FileName = processName,
+                    FileName = workingDir + processName,
                     WorkingDirectory = workingDir,
                     Arguments = args,
-                    RedirectStandardError = true,
+                    RedirectStandardError = redirectError,
+                    RedirectStandardOutput = redirectOutput,
                     UseShellExecute = false,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     CreateNoWindow = true
@@ -30,12 +31,25 @@ namespace VideoCrossCorrelation.Logic
                 Console.WriteLine("Error starting");
                 return "Error";
             }
-            var reader = proc.StandardError;
-            string line;
-            while ((line = reader.ReadLine()) != null)
+            if (redirectError)
             {
-                Console.WriteLine(line);
-                output.AppendLine(line);
+                var reader = proc.StandardError;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                    output.AppendLine(line);
+                }
+            }
+            if (redirectOutput)
+            {
+                var reader = proc.StandardOutput;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                    output.AppendLine(line);
+                }
             }
             var rc = proc.ExitCode;
             proc.Close();
@@ -44,12 +58,12 @@ namespace VideoCrossCorrelation.Logic
 
         private string ExecuteFfmpeg(string args)
         {
-            return ExecuteProcess("ffmpeg.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args);
+            return ExecuteProcess("ffmpeg.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args, false, true);
         }
 
         private string ExecuteFfprobe(string args)
         {
-            return ExecuteProcess("ffprobe.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args);
+            return ExecuteProcess("ffprobe.exe", Directory.GetCurrentDirectory() + @"\libs\ffmpeg\bin\", args, true, false);
         }
 
         private static double? ExecuteCrossCorrelation(string audioFile, string refAudioFile)
@@ -88,9 +102,18 @@ namespace VideoCrossCorrelation.Logic
 
         private bool MergeAudioWithDelay(string inputAudioFile1, string inputAudioFile2, string outputAudioFile, int delay)
         {
-            var delayStr = delay > 0 ? string.Format("{0}|0", delay) : string.Format("0|{0}", -1 * delay);
-            var mergeOutput = ExecuteFfmpeg(string.Format("-i \"{0}\" -i \"{1}\" -filter_complex \"[0][1]amerge[aout];[aout]adelay={2}[adelay]\" -map \"[adelay]\" \"{3}\"",
-                inputAudioFile1, inputAudioFile2, delayStr, outputAudioFile));
+            string mergeOutput;
+            if (delay != 0)
+            {
+                var delayStr = delay > 0 ? string.Format("{0}|0", delay) : string.Format("0|{0}", -1 * delay);
+                mergeOutput = ExecuteFfmpeg(string.Format("-i \"{0}\" -i \"{1}\" -filter_complex \"[0][1]amerge[aout];[aout]adelay={2}[adelay]\" -map \"[adelay]\" \"{3}\"",
+                    inputAudioFile1, inputAudioFile2, delayStr, outputAudioFile)); 
+            }
+            else
+            {
+                mergeOutput = ExecuteFfmpeg(string.Format("-i \"{0}\" -i \"{1}\" -filter_complex \"[0][1]amerge[aout]\" -map \"[aout]\" \"{2}\"",
+                    inputAudioFile1, inputAudioFile2, outputAudioFile));
+            }
             return !"Error".Equals(mergeOutput);
         }
 
@@ -130,11 +153,11 @@ namespace VideoCrossCorrelation.Logic
                     var title = titleMatch.Groups["title"].Value;
 
                     var streamName = "";
-                    if (string.IsNullOrEmpty(title))
+                    if (!string.IsNullOrEmpty(title))
                     {
                         streamName = title;
                     }
-                    if (string.IsNullOrEmpty(language))
+                    if (!string.IsNullOrEmpty(language))
                     {
                         streamName += "[" + language + "]";
                     }

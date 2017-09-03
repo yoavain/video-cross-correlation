@@ -448,6 +448,7 @@ namespace VideoCrossCorrelation
             this.Controls.Add(this.ExecutePanel);
             this.Controls.Add(this.panel1);
             this.Name = "InputForm";
+            this.Resizable = false;
             this.Text = "Video Cross-Correlation Calculator";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InputForm_FormClosing);
             this.Load += new System.EventHandler(this.InputForm_Load);

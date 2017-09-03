@@ -36,7 +36,7 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video1TextBox.Text = openFileDialog.FileName;
-                //var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
+                var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
                 updateExecuteButtonState();
             }
         }
@@ -48,7 +48,7 @@ namespace VideoCrossCorrelation
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 video2TextBox.Text = openFileDialog.FileName;
-                //var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
+                var audioStreams = logicExecutor.GetAudioStreams(openFileDialog.FileName);
                 updateExecuteButtonState();
             }
         }
