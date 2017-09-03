@@ -365,6 +365,7 @@ namespace VideoCrossCorrelation
             // 
             // metroPanel1
             // 
+            this.metroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.metroPanel1.Controls.Add(this.darkModeToggle);
             this.metroPanel1.Controls.Add(this.colorComboBox);
             this.metroPanel1.Controls.Add(this.colorLabel);
