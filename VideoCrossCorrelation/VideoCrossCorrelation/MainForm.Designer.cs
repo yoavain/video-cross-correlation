@@ -1,5 +1,6 @@
 ﻿using MetroFramework;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace VideoCrossCorrelation
@@ -111,7 +112,7 @@ namespace VideoCrossCorrelation
             this.video2Button.TabIndex = 2;
             this.video2Button.Text = "Video #2";
             this.video2Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.video2Button.Click += new System.EventHandler(this.button2_Click);
+            this.video2Button.Click += new System.EventHandler(this.video2Button_Click);
             // 
             // video1TextBox
             // 
@@ -128,7 +129,7 @@ namespace VideoCrossCorrelation
             this.video1Button.TabIndex = 0;
             this.video1Button.Text = "Video #1";
             this.video1Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.video1Button.Click += new System.EventHandler(this.button1_Click);
+            this.video1Button.Click += new System.EventHandler(this.video1Button_Click);
             // 
             // resultTextBox
             // 
@@ -147,7 +148,7 @@ namespace VideoCrossCorrelation
             this.executeButton.TabIndex = 4;
             this.executeButton.Text = "Calculate Delay";
             this.executeButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.executeButton.Click += new System.EventHandler(this.button3_Click);
+            this.executeButton.Click += new System.EventHandler(this.executeButton_Click);
             // 
             // ExecutePanel
             // 
@@ -450,7 +451,7 @@ namespace VideoCrossCorrelation
             // 
             this.video1AudioStreamComboBox.Visible = false;
             this.video1AudioStreamComboBox.Enabled = false;
-            this.video1AudioStreamComboBox.DataSource = _video1ComboBoxItemsBindingSource;
+            this.video1AudioStreamComboBox.DataSource = this._video1ComboBoxItemsBindingSource;
             this.video1AudioStreamComboBox.FormattingEnabled = true;
             this.video1AudioStreamComboBox.ItemHeight = 23;
             this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
@@ -462,7 +463,7 @@ namespace VideoCrossCorrelation
             // 
             this.video2AudioStreamComboBox.Visible = false;
             this.video2AudioStreamComboBox.Enabled = false;
-            this.video2AudioStreamComboBox.DataSource = _video2ComboBoxItemsBindingSource;
+            this.video2AudioStreamComboBox.DataSource = this._video2ComboBoxItemsBindingSource;
             this.video2AudioStreamComboBox.FormattingEnabled = true;
             this.video2AudioStreamComboBox.ItemHeight = 23;
             this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);

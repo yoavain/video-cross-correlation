@@ -24,20 +24,22 @@ namespace VideoCrossCorrelation
         private Dictionary<string, int> _video1AudioStreams;
         private Dictionary<string, int> _video2AudioStreams;
 
-        private readonly BindingSource _video1ComboBoxItemsBindingSource = new BindingSource();
-        private readonly BindingSource _video2ComboBoxItemsBindingSource = new BindingSource();
+        private BindingSource _video1ComboBoxItemsBindingSource;
+        private BindingSource _video2ComboBoxItemsBindingSource;
 
         public InputForm()
         {
+            _video1ComboBoxItemsBindingSource = new BindingSource();
+            _video1ComboBoxItemsBindingSource.DataSource = new List<string>();
+            _video2ComboBoxItemsBindingSource = new BindingSource();
+            _video2ComboBoxItemsBindingSource.DataSource = new List<string>();
+
             InitializeComponent();
 
             StyleManager = metroStyleManager;
-
-            _video1ComboBoxItemsBindingSource.DataSource = new List<string>();
-            _video2ComboBoxItemsBindingSource.DataSource = new List<string>();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void video1Button_Click(object sender, EventArgs e)
         {
             _openFileDialog.RestoreDirectory = true;
             _openFileDialog.Filter = _videoFilter;
@@ -60,7 +62,7 @@ namespace VideoCrossCorrelation
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void video2Button_Click(object sender, EventArgs e)
         {
             _openFileDialog.RestoreDirectory = true;
             _openFileDialog.Filter = _videoFilter;
@@ -92,7 +94,7 @@ namespace VideoCrossCorrelation
                 double.TryParse(durationTextBox.Text, out d);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void executeButton_Click(object sender, EventArgs e)
         {
             _video1AudioStreams.TryGetValue(video1AudioStreamComboBox.SelectedValue.ToString(), out int video1StreamIndex);
             _video2AudioStreams.TryGetValue(video2AudioStreamComboBox.SelectedValue.ToString(), out int video2StreamIndex);
