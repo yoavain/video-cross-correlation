@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,8 +10,12 @@ namespace VideoCrossCorrelation.Logic
 {
     internal class LogicExecutor
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(LogicExecutor));
+
         private string ExecuteProcess(string processName,string workingDir, string args, bool redirectOutput, bool redirectError)
         {
+            log.Info(string.Format("Calling {0} with args: {1}", processName, args));
+
             var output = new StringBuilder();
             var proc = new Process
             {
@@ -28,7 +33,7 @@ namespace VideoCrossCorrelation.Logic
             };
             if (!proc.Start())
             {
-                Console.WriteLine("Error starting");
+                log.Error(string.Format("{0}: Error starting process", processName));
                 return "Error";
             }
             if (redirectError)
@@ -37,7 +42,7 @@ namespace VideoCrossCorrelation.Logic
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
+                    log.Debug(string.Format("{0} [Error]: {1}",processName, line));
                     output.AppendLine(line);
                 }
             }
@@ -47,12 +52,13 @@ namespace VideoCrossCorrelation.Logic
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
+                    log.Debug(string.Format("{0} [Output]: {1}", processName, line));
                     output.AppendLine(line);
                 }
             }
             var rc = proc.ExitCode;
             proc.Close();
+            log.Info(string.Format("{0}: exit code = {1}", processName, rc));
             return rc == 0 ? output.ToString() : "Error";
         }
 
@@ -80,9 +86,11 @@ namespace VideoCrossCorrelation.Logic
         private bool NormalizeAudio(string inputAudioFile, string outputAudioFile)
         {
             // Detect volume
+            log.Info(string.Format("Detecting volume for {0}", inputAudioFile));
             var pass1Output = ExecuteFfmpeg(string.Format("-i \"{0}\" -af \"volumedetect\" -f null /dev/null", inputAudioFile));
             if ("Error".Equals(pass1Output))
             {
+                log.Error(string.Format("Failed detecting volume for {0}", inputAudioFile));
                 return false;
             }
             const string pattern = @"max_volume: (?<MaxVolume>-\d+.\d+) dB";
@@ -91,17 +99,26 @@ namespace VideoCrossCorrelation.Logic
             var maxVolumeStr = match.Groups["MaxVolume"].Value;
             if (string.IsNullOrEmpty(maxVolumeStr))
             {
+                log.Error(string.Format("Failed detecting volume for {0}. Missing max_volume", inputAudioFile));
                 return false;
             }
             var maxVolume = double.Parse(maxVolumeStr);
+            log.Info(string.Format("Max volume for {0} is {1} dB", inputAudioFile, maxVolume));
 
             // Normalize
+            log.Info(string.Format("Normalizing volume for {0}", inputAudioFile));
             var pass2Output = ExecuteFfmpeg(string.Format("-i \"{0}\" -y -af \"volume ={1} dB\" \"{2}\"", inputAudioFile, -1.0 * maxVolume, outputAudioFile));
-            return !"Error".Equals(pass2Output);
+            if ("Error".Equals(pass2Output))
+            {
+                log.Error(string.Format("Failed normalizing volume for {0}", inputAudioFile));
+                return false;
+            }
+            return true;
         }
 
         private bool MergeAudioWithDelay(string inputAudioFile1, string inputAudioFile2, string outputAudioFile, int delay)
         {
+            log.Info(string.Format("Merging {0} with {1}", inputAudioFile1, inputAudioFile2));
             string mergeOutput;
             if (delay != 0)
             {
@@ -114,14 +131,21 @@ namespace VideoCrossCorrelation.Logic
                 mergeOutput = ExecuteFfmpeg(string.Format("-i \"{0}\" -i \"{1}\" -filter_complex \"[0][1]amerge[aout]\" -map \"[aout]\" \"{2}\"",
                     inputAudioFile1, inputAudioFile2, outputAudioFile));
             }
-            return !"Error".Equals(mergeOutput);
+            if ("Error".Equals(mergeOutput))
+            {
+                log.Error(string.Format("Failed merging {0} with {1}", inputAudioFile1, inputAudioFile2));
+                return false;
+            }
+            return true;
         }
 
         public Dictionary<string, string> GetAudioStreams(string inputVideoFile)
         {
+            log.Info(string.Format("Getting audio streams for {0}", inputVideoFile));
             var ffprobeOutput = ExecuteFfprobe(string.Format("-v 0 -select_streams a -show_entries stream=index,codec_type:stream_tags=title,language -of compact \"{0}\"", inputVideoFile));
             if ("Error".Equals(ffprobeOutput))
             {
+                log.Error(string.Format("Failed getting audio streams for {0}", inputVideoFile));
                 return null;
             }
 
@@ -139,6 +163,7 @@ namespace VideoCrossCorrelation.Logic
                     var id = idMatch.Groups["id"].Value;
                     if (string.IsNullOrEmpty(id))
                     {
+                        log.Warn("Failed getting id for audio stream. Skipping");
                         continue;
                     }
 
@@ -166,14 +191,18 @@ namespace VideoCrossCorrelation.Logic
                         streamName = "unknown";
                     }
 
+                    log.Info(string.Format("Adding stream id {0} with name {1}", id, streamName));
                     result.Add(id, streamName);
                 }
             }
+            log.Info(string.Format("Found {0} audio stream{1} for {2}", result.Count, (result.Count > 1 ? "s" : ""), inputVideoFile));
             return result;
         }
 
         public LogicResult RunLogic(string videoFile1, string videoFile2, double start, double duration)
         {
+            log.Info(string.Format("Starting logic for {0} and {1}", videoFile1, videoFile2));
+
             var audioFile1 = Path.GetTempPath() + Guid.NewGuid() + "_audioFile1.wav";
             var audioFile2 = Path.GetTempPath() + Guid.NewGuid() + "audioFile2.wav";
             var normalizedAudioFile1 = Path.GetTempPath() + Guid.NewGuid() + "_normalizedAudioFile1.wav";
@@ -184,6 +213,7 @@ namespace VideoCrossCorrelation.Logic
             var extract1 = ExtractAudioFromVideo(videoFile1, audioFile1, start, duration, 1, 22050);
             var extract2 = ExtractAudioFromVideo(videoFile2, audioFile2, start, duration, 1, 22050);
             if (!(extract1 && extract2)) {
+                log.Error("Failed to extract one or more audio from video files");
                 return LogicResult.FailLogicResult("Failed to extract one or more audio from video files");
             }
 
@@ -192,6 +222,7 @@ namespace VideoCrossCorrelation.Logic
             var normalize2 = NormalizeAudio(audioFile2, normalizedAudioFile2);
             if (!(normalize1 && normalize2))
             {
+                log.Error("Failed to normalize one or more audio files");
                 return LogicResult.FailLogicResult("Failed to normalize one or more audio files");
             }
 
@@ -203,6 +234,7 @@ namespace VideoCrossCorrelation.Logic
                 bool merge = MergeAudioWithDelay(normalizedAudioFile1, normalizedAudioFile2, mergedAudioFile, delayMillis);
                 return LogicResult.SuccessLogicResult(delay, merge ? mergedAudioFile : null);
             }
+            log.Error("Failed to calculate audio cross-correlation");
             return LogicResult.FailLogicResult("Failed to calculate audio cross-correlation");
         }
     }
