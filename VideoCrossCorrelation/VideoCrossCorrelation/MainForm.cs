@@ -24,16 +24,18 @@ namespace VideoCrossCorrelation
         private Dictionary<string, int> _video1AudioStreams;
         private Dictionary<string, int> _video2AudioStreams;
 
-        private BindingSource _video1ComboBoxItemsBindingSource;
-        private BindingSource _video2ComboBoxItemsBindingSource;
+        private BindingSource _video1ComboBoxItemsBindingSource = new BindingSource
+        {
+            DataSource = new List<string>()
+        };
+        private BindingSource _video2ComboBoxItemsBindingSource = new BindingSource
+        {
+            DataSource = new List<string>()
+        };
+            
 
         public InputForm()
         {
-            _video1ComboBoxItemsBindingSource = new BindingSource();
-            _video1ComboBoxItemsBindingSource.DataSource = new List<string>();
-            _video2ComboBoxItemsBindingSource = new BindingSource();
-            _video2ComboBoxItemsBindingSource.DataSource = new List<string>();
-
             InitializeComponent();
 
             StyleManager = metroStyleManager;
