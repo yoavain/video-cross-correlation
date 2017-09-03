@@ -450,7 +450,7 @@ namespace VideoCrossCorrelation
             // 
             this.video1AudioStreamComboBox.Visible = false;
             this.video1AudioStreamComboBox.Enabled = false;
-            this.video1AudioStreamComboBox.DataSource = video1ComboBoxItemsBindingSource;
+            this.video1AudioStreamComboBox.DataSource = _video1ComboBoxItemsBindingSource;
             this.video1AudioStreamComboBox.FormattingEnabled = true;
             this.video1AudioStreamComboBox.ItemHeight = 23;
             this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
@@ -462,7 +462,7 @@ namespace VideoCrossCorrelation
             // 
             this.video2AudioStreamComboBox.Visible = false;
             this.video2AudioStreamComboBox.Enabled = false;
-            this.video2AudioStreamComboBox.DataSource = video2ComboBoxItemsBindingSource;
+            this.video2AudioStreamComboBox.DataSource = _video2ComboBoxItemsBindingSource;
             this.video2AudioStreamComboBox.FormattingEnabled = true;
             this.video2AudioStreamComboBox.ItemHeight = 23;
             this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);
