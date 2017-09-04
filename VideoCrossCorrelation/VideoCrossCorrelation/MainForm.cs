@@ -321,6 +321,8 @@ namespace VideoCrossCorrelation
         private void colorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             metroStyleManager.Style = (MetroColorStyle)Enum.Parse(typeof(MetroColorStyle), (sender as MetroComboBox).Text, true);
+            waveformPainter1.ForeColor = Color.FromName(metroStyleManager.Style.ToString());
+            waveformPainter2.ForeColor = Color.FromName(metroStyleManager.Style.ToString());
         }
 
         private void InputForm_Load(object sender, EventArgs e)

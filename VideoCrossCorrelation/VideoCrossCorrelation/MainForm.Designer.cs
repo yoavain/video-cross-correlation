@@ -369,7 +369,7 @@ namespace VideoCrossCorrelation
             // 
             this.waveformPainter1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.waveformPainter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.waveformPainter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.waveformPainter1.ForeColor = System.Drawing.Color.ForestGreen;
             this.waveformPainter1.Location = new System.Drawing.Point(15, 20);
             this.waveformPainter1.Name = "waveformPainter1";
@@ -381,7 +381,7 @@ namespace VideoCrossCorrelation
             // 
             this.waveformPainter2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.waveformPainter2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.waveformPainter2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.waveformPainter2.ForeColor = System.Drawing.Color.ForestGreen;
             this.waveformPainter2.Location = new System.Drawing.Point(15, 95);
             this.waveformPainter2.Name = "waveformPainter2";
@@ -459,7 +459,7 @@ namespace VideoCrossCorrelation
                 "Magenta",
                 "Purple",
                 "Red",
-                "Yellow",
+                "Yellow"
             });
             this.colorComboBox.Location = new System.Drawing.Point(99, 51);
             this.colorComboBox.Name = "colorComboBox";
