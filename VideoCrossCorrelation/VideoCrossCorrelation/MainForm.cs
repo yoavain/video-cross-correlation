@@ -47,6 +47,7 @@ namespace VideoCrossCorrelation
             _openFileDialog.Filter = _videoFilter;
             if (_openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                ClearData();
                 video1TextBox.Text = _openFileDialog.FileName;
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
                 if (audioStreams.Count > 0)
@@ -70,6 +71,7 @@ namespace VideoCrossCorrelation
             _openFileDialog.Filter = _videoFilter;
             if (_openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                ClearData();
                 video2TextBox.Text = _openFileDialog.FileName;
                 var audioStreams = _logicExecutor.GetAudioStreams(_openFileDialog.FileName);
                 if (audioStreams.Count > 0)
@@ -87,13 +89,21 @@ namespace VideoCrossCorrelation
             }
         }
 
+        private void ClearData()
+        {
+            executeButton.Enabled = false;
+            resultTextBox.Text = null;
+            playerControlPanel.Visible = false;
+            waveFormPanel.Visible = false;
+        }
+
         private void UpdateExecuteButtonState()
         {
             double d;
             executeButton.Enabled = !string.IsNullOrEmpty(video1TextBox.Text) && 
-                !string.IsNullOrEmpty(video2TextBox.Text) &&
-                double.TryParse(startTimeTextBox.Text, out d) &&
-                double.TryParse(durationTextBox.Text, out d);
+                                    !string.IsNullOrEmpty(video2TextBox.Text) &&
+                                    double.TryParse(startTimeTextBox.Text, out d) &&
+                                    double.TryParse(durationTextBox.Text, out d);
         }
 
         private void executeButton_Click(object sender, EventArgs e)
@@ -316,13 +326,13 @@ namespace VideoCrossCorrelation
 
         private void InputForm_Load(object sender, EventArgs e)
         {
-            metroStyleManager.Theme = Properties.Settings.Default.MetroTheme;
-            metroStyleManager.Style = Properties.Settings.Default.MetroColor;
-        }
+            var theme = Properties.Settings.Default.MetroTheme;
+            var color = Properties.Settings.Default.MetroColor;
+            darkModeToggle.Checked = theme == MetroThemeStyle.Dark;
+            colorComboBox.SelectedIndex = colorComboBox.Items.IndexOf(color.ToString());
 
-        private void metroTile1_Click(object sender, EventArgs e)
-        {
-
+            darkModeToggle_CheckedChanged(darkModeToggle, null);
+            colorComboBox_SelectedIndexChanged(colorComboBox, null);
         }
     }
 }

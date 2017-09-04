@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VideoCrossCorrelation.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MetroTheme" Type="MetroFramework.MetroThemeStyle" Scope="Application">
+    <Setting Name="MetroTheme" Type="MetroFramework.MetroThemeStyle" Scope="User">
       <Value Profile="(Default)">Default</Value>
     </Setting>
-    <Setting Name="MetroColor" Type="MetroFramework.MetroColorStyle" Scope="Application">
+    <Setting Name="MetroColor" Type="MetroFramework.MetroColorStyle" Scope="User">
       <Value Profile="(Default)">Default</Value>
     </Setting>
   </Settings>

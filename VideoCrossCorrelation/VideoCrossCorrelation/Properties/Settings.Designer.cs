@@ -23,21 +23,27 @@ namespace VideoCrossCorrelation.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Default")]
         public global::MetroFramework.MetroThemeStyle MetroTheme {
             get {
                 return ((global::MetroFramework.MetroThemeStyle)(this["MetroTheme"]));
             }
+            set {
+                this["MetroTheme"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Default")]
         public global::MetroFramework.MetroColorStyle MetroColor {
             get {
                 return ((global::MetroFramework.MetroColorStyle)(this["MetroColor"]));
+            }
+            set {
+                this["MetroColor"] = value;
             }
         }
     }

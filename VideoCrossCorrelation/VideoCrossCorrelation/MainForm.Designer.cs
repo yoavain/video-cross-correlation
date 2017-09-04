@@ -35,6 +35,8 @@ namespace VideoCrossCorrelation
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new MetroFramework.Controls.MetroPanel();
+            this.video2AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.video1AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
             this.video2TextBox = new MetroFramework.Controls.MetroTextBox();
             this.video2Button = new MetroFramework.Controls.MetroTile();
             this.video1TextBox = new MetroFramework.Controls.MetroTextBox();
@@ -66,8 +68,6 @@ namespace VideoCrossCorrelation
             this.colorComboBox = new MetroFramework.Controls.MetroComboBox();
             this.colorLabel = new MetroFramework.Controls.MetroLabel();
             this.darkModeLabel = new MetroFramework.Controls.MetroLabel();
-            this.video1AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
-            this.video2AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
             this.panel1.SuspendLayout();
             this.ExecutePanel.SuspendLayout();
             this.configurationPanel.SuspendLayout();
@@ -96,6 +96,28 @@ namespace VideoCrossCorrelation
             this.panel1.VerticalScrollbarBarColor = true;
             this.panel1.VerticalScrollbarHighlightOnWheel = false;
             this.panel1.VerticalScrollbarSize = 10;
+            // 
+            // video2AudioStreamComboBox
+            // 
+            this.video2AudioStreamComboBox.Enabled = false;
+            this.video2AudioStreamComboBox.FormattingEnabled = true;
+            this.video2AudioStreamComboBox.ItemHeight = 23;
+            this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);
+            this.video2AudioStreamComboBox.Name = "video2AudioStreamComboBox";
+            this.video2AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
+            this.video2AudioStreamComboBox.TabIndex = 5;
+            this.video2AudioStreamComboBox.Visible = false;
+            // 
+            // video1AudioStreamComboBox
+            // 
+            this.video1AudioStreamComboBox.Enabled = false;
+            this.video1AudioStreamComboBox.FormattingEnabled = true;
+            this.video1AudioStreamComboBox.ItemHeight = 23;
+            this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
+            this.video1AudioStreamComboBox.Name = "video1AudioStreamComboBox";
+            this.video1AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
+            this.video1AudioStreamComboBox.TabIndex = 4;
+            this.video1AudioStreamComboBox.Visible = false;
             // 
             // video2TextBox
             // 
@@ -408,21 +430,20 @@ namespace VideoCrossCorrelation
             this.colorComboBox.FormattingEnabled = true;
             this.colorComboBox.ItemHeight = 23;
             this.colorComboBox.Items.AddRange(new object[] {
-            "Black",
-            "White",
-            "Silver",
-            "Blue",
-            "Green",
-            "Lime",
-            "Teal",
-            "Orange",
-            "Brown",
-            "Pink",
-            "Magenta",
-            "Purple",
-            "Red",
-            "Yellow",
-            "Default"});
+                "Default",
+                "Silver",
+                "Blue",
+                "Green",
+                "Lime",
+                "Teal",
+                "Orange",
+                "Brown",
+                "Pink",
+                "Magenta",
+                "Purple",
+                "Red",
+                "Yellow",
+            });
             this.colorComboBox.Location = new System.Drawing.Point(99, 51);
             this.colorComboBox.Name = "colorComboBox";
             this.colorComboBox.Size = new System.Drawing.Size(83, 29);
@@ -447,34 +468,11 @@ namespace VideoCrossCorrelation
             this.darkModeLabel.TabIndex = 2;
             this.darkModeLabel.Text = "Dark Mode";
             // 
-            // video1AudioStreamComboBox
-            // 
-            this.video1AudioStreamComboBox.Visible = false;
-            this.video1AudioStreamComboBox.Enabled = false;
-            this.video1AudioStreamComboBox.DataSource = this._video1ComboBoxItemsBindingSource;
-            this.video1AudioStreamComboBox.FormattingEnabled = true;
-            this.video1AudioStreamComboBox.ItemHeight = 23;
-            this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
-            this.video1AudioStreamComboBox.Name = "video1AudioStreamComboBox";
-            this.video1AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
-            this.video1AudioStreamComboBox.TabIndex = 4;
-            // 
-            // video2AudioStreamComboBox
-            // 
-            this.video2AudioStreamComboBox.Visible = false;
-            this.video2AudioStreamComboBox.Enabled = false;
-            this.video2AudioStreamComboBox.DataSource = this._video2ComboBoxItemsBindingSource;
-            this.video2AudioStreamComboBox.FormattingEnabled = true;
-            this.video2AudioStreamComboBox.ItemHeight = 23;
-            this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);
-            this.video2AudioStreamComboBox.Name = "video2AudioStreamComboBox";
-            this.video2AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
-            this.video2AudioStreamComboBox.TabIndex = 5;
-            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(745, 552);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.waveFormPanel);
