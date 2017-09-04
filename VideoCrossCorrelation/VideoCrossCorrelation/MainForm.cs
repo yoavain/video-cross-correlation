@@ -24,11 +24,11 @@ namespace VideoCrossCorrelation
         private Dictionary<string, int> _video1AudioStreams;
         private Dictionary<string, int> _video2AudioStreams;
 
-        private BindingSource _video1ComboBoxItemsBindingSource = new BindingSource
+        private readonly BindingSource _video1ComboBoxItemsBindingSource = new BindingSource
         {
             DataSource = new List<string>()
         };
-        private BindingSource _video2ComboBoxItemsBindingSource = new BindingSource
+        private readonly BindingSource _video2ComboBoxItemsBindingSource = new BindingSource
         {
             DataSource = new List<string>()
         };
@@ -291,9 +291,8 @@ namespace VideoCrossCorrelation
         {
             if (_waveOut != null && _audioFileReader != null)
             {
-                TimeSpan currentTime = (_waveOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : _audioFileReader.CurrentTime;
-                labelCurrentTime.Text = String.Format("{0:00}:{1:00}", (int)currentTime.TotalMinutes,
-                    currentTime.Seconds);
+                var currentTime = (_waveOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : _audioFileReader.CurrentTime;
+                labelCurrentTime.Text = string.Format("{0:00}:{1:00}", (int)currentTime.TotalMinutes, currentTime.Seconds);
             }
         }
 
