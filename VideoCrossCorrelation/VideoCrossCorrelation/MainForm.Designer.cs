@@ -34,6 +34,7 @@ namespace VideoCrossCorrelation
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputForm));
             this.panel1 = new MetroFramework.Controls.MetroPanel();
             this.video2AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
             this.video1AudioStreamComboBox = new MetroFramework.Controls.MetroComboBox();
@@ -64,9 +65,9 @@ namespace VideoCrossCorrelation
             this.waveFormPanel = new MetroFramework.Controls.MetroPanel();
             this.metroStyleManager = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroToolTip = new MetroFramework.Components.MetroToolTip();
-            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.darkModeToggle = new MetroFramework.Controls.MetroToggle();
             this.colorComboBox = new MetroFramework.Controls.MetroComboBox();
+            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.colorLabel = new MetroFramework.Controls.MetroLabel();
             this.darkModeLabel = new MetroFramework.Controls.MetroLabel();
             this.panel1.SuspendLayout();
@@ -102,27 +103,25 @@ namespace VideoCrossCorrelation
             // 
             this.video2AudioStreamComboBox.Enabled = false;
             this.video2AudioStreamComboBox.FormattingEnabled = true;
-            this.video2AudioStreamComboBox.DataSource = this._video2ComboBoxItemsBindingSource;
             this.video2AudioStreamComboBox.ItemHeight = 23;
             this.video2AudioStreamComboBox.Location = new System.Drawing.Point(143, 118);
             this.video2AudioStreamComboBox.Name = "video2AudioStreamComboBox";
             this.video2AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
             this.video2AudioStreamComboBox.TabIndex = 5;
-            this.video2AudioStreamComboBox.Visible = false;
             this.metroToolTip.SetToolTip(this.video2AudioStreamComboBox, "Select audio stream for video #2");
+            this.video2AudioStreamComboBox.Visible = false;
             // 
             // video1AudioStreamComboBox
             // 
             this.video1AudioStreamComboBox.Enabled = false;
             this.video1AudioStreamComboBox.FormattingEnabled = true;
-            this.video1AudioStreamComboBox.DataSource = this._video1ComboBoxItemsBindingSource;
             this.video1AudioStreamComboBox.ItemHeight = 23;
             this.video1AudioStreamComboBox.Location = new System.Drawing.Point(143, 48);
             this.video1AudioStreamComboBox.Name = "video1AudioStreamComboBox";
             this.video1AudioStreamComboBox.Size = new System.Drawing.Size(347, 29);
             this.video1AudioStreamComboBox.TabIndex = 4;
-            this.video1AudioStreamComboBox.Visible = false;
             this.metroToolTip.SetToolTip(this.video1AudioStreamComboBox, "Select audio stream for video #1");
+            this.video1AudioStreamComboBox.Visible = false;
             // 
             // video2TextBox
             // 
@@ -140,8 +139,8 @@ namespace VideoCrossCorrelation
             this.video2Button.TabIndex = 2;
             this.video2Button.Text = "Video #2";
             this.video2Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.video2Button.Click += new System.EventHandler(this.video2Button_Click);
             this.metroToolTip.SetToolTip(this.video2Button, "Select video #2");
+            this.video2Button.Click += new System.EventHandler(this.video2Button_Click);
             // 
             // video1TextBox
             // 
@@ -159,8 +158,8 @@ namespace VideoCrossCorrelation
             this.video1Button.TabIndex = 0;
             this.video1Button.Text = "Video #1";
             this.video1Button.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.video1Button.Click += new System.EventHandler(this.video1Button_Click);
             this.metroToolTip.SetToolTip(this.video1Button, "Select video #1");
+            this.video1Button.Click += new System.EventHandler(this.video1Button_Click);
             // 
             // resultTextBox
             // 
@@ -180,8 +179,8 @@ namespace VideoCrossCorrelation
             this.executeButton.TabIndex = 4;
             this.executeButton.Text = "Calculate Delay";
             this.executeButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.executeButton.Click += new System.EventHandler(this.executeButton_Click);
             this.metroToolTip.SetToolTip(this.executeButton, "Calculate delay between video #1 and video #2");
+            this.executeButton.Click += new System.EventHandler(this.executeButton_Click);
             // 
             // ExecutePanel
             // 
@@ -254,8 +253,8 @@ namespace VideoCrossCorrelation
             this.durationTextBox.TabIndex = 1;
             this.durationTextBox.Text = "60";
             this.durationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.durationTextBox.TextChanged += new System.EventHandler(this.durationTextBox_TextChanged);
             this.metroToolTip.SetToolTip(this.durationTextBox, "Duration of video used for delay calculation (in seconds)");
+            this.durationTextBox.TextChanged += new System.EventHandler(this.durationTextBox_TextChanged);
             // 
             // startTimeTextBox
             // 
@@ -265,8 +264,8 @@ namespace VideoCrossCorrelation
             this.startTimeTextBox.TabIndex = 0;
             this.startTimeTextBox.Text = "0";
             this.startTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.startTimeTextBox.TextChanged += new System.EventHandler(this.startTimeTextBox_TextChanged);
             this.metroToolTip.SetToolTip(this.startTimeTextBox, "Start time of video used for delay calculation (in seconds)");
+            this.startTimeTextBox.TextChanged += new System.EventHandler(this.startTimeTextBox_TextChanged);
             // 
             // playButton
             // 
@@ -276,8 +275,8 @@ namespace VideoCrossCorrelation
             this.playButton.TabIndex = 3;
             this.playButton.Text = "Play";
             this.playButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             this.metroToolTip.SetToolTip(this.playButton, "Play audio. Video #1 in left channel; video #2 in right channel");
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // pauseButton
             // 
@@ -287,8 +286,8 @@ namespace VideoCrossCorrelation
             this.pauseButton.TabIndex = 4;
             this.pauseButton.Text = "Pause";
             this.pauseButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             this.metroToolTip.SetToolTip(this.pauseButton, "Pause audio");
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // stopButton
             // 
@@ -298,8 +297,8 @@ namespace VideoCrossCorrelation
             this.stopButton.TabIndex = 5;
             this.stopButton.Text = "Stop";
             this.stopButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             this.metroToolTip.SetToolTip(this.stopButton, "Stop audio");
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
             // playerControlPanel
             // 
@@ -412,6 +411,43 @@ namespace VideoCrossCorrelation
             this.metroStyleManager.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroStyleManager.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
+            // darkModeToggle
+            // 
+            this.darkModeToggle.AutoSize = true;
+            this.darkModeToggle.Location = new System.Drawing.Point(99, 14);
+            this.darkModeToggle.Name = "darkModeToggle";
+            this.darkModeToggle.Size = new System.Drawing.Size(80, 17);
+            this.darkModeToggle.TabIndex = 5;
+            this.darkModeToggle.Text = "Off";
+            this.metroToolTip.SetToolTip(this.darkModeToggle, "Select between dark and light mode theme");
+            this.darkModeToggle.UseVisualStyleBackColor = true;
+            this.darkModeToggle.CheckedChanged += new System.EventHandler(this.darkModeToggle_CheckedChanged);
+            // 
+            // colorComboBox
+            // 
+            this.colorComboBox.FormattingEnabled = true;
+            this.colorComboBox.ItemHeight = 23;
+            this.colorComboBox.Items.AddRange(new object[] {
+            "Default",
+            "Silver",
+            "Blue",
+            "Green",
+            "Lime",
+            "Teal",
+            "Orange",
+            "Brown",
+            "Pink",
+            "Magenta",
+            "Purple",
+            "Red",
+            "Yellow"});
+            this.colorComboBox.Location = new System.Drawing.Point(99, 51);
+            this.colorComboBox.Name = "colorComboBox";
+            this.colorComboBox.Size = new System.Drawing.Size(83, 29);
+            this.colorComboBox.TabIndex = 4;
+            this.metroToolTip.SetToolTip(this.colorComboBox, "Select color for theme");
+            this.colorComboBox.SelectedIndexChanged += new System.EventHandler(this.colorComboBox_SelectedIndexChanged);
+            // 
             // metroPanel1
             // 
             this.metroPanel1.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
@@ -429,44 +465,6 @@ namespace VideoCrossCorrelation
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
-            // 
-            // darkModeToggle
-            // 
-            this.darkModeToggle.AutoSize = true;
-            this.darkModeToggle.Location = new System.Drawing.Point(99, 14);
-            this.darkModeToggle.Name = "darkModeToggle";
-            this.darkModeToggle.Size = new System.Drawing.Size(80, 17);
-            this.darkModeToggle.TabIndex = 5;
-            this.darkModeToggle.Text = "Off";
-            this.darkModeToggle.UseVisualStyleBackColor = true;
-            this.darkModeToggle.CheckedChanged += new System.EventHandler(this.darkModeToggle_CheckedChanged);
-            this.metroToolTip.SetToolTip(this.darkModeToggle, "Select between dark and light mode theme");
-            // 
-            // colorComboBox
-            // 
-            this.colorComboBox.FormattingEnabled = true;
-            this.colorComboBox.ItemHeight = 23;
-            this.colorComboBox.Items.AddRange(new object[] {
-                "Default",
-                "Silver",
-                "Blue",
-                "Green",
-                "Lime",
-                "Teal",
-                "Orange",
-                "Brown",
-                "Pink",
-                "Magenta",
-                "Purple",
-                "Red",
-                "Yellow"
-            });
-            this.colorComboBox.Location = new System.Drawing.Point(99, 51);
-            this.colorComboBox.Name = "colorComboBox";
-            this.colorComboBox.Size = new System.Drawing.Size(83, 29);
-            this.colorComboBox.TabIndex = 4;
-            this.colorComboBox.SelectedIndexChanged += new System.EventHandler(this.colorComboBox_SelectedIndexChanged);
-            this.metroToolTip.SetToolTip(this.colorComboBox, "Select color for theme");
             // 
             // colorLabel
             // 
@@ -498,6 +496,7 @@ namespace VideoCrossCorrelation
             this.Controls.Add(this.configurationPanel);
             this.Controls.Add(this.ExecutePanel);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InputForm";
             this.Resizable = false;
             this.Text = "Video Cross-Correlation Calculator";
