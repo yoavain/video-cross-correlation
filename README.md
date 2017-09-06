@@ -1,4 +1,5 @@
-# video-cross-correlation
+![](https://raw.githubusercontent.com/yoavain/video-cross-correlation/master/VideoCrossCorrelation/VideoCrossCorrelation/Resources/128x128.bmp)
+# video-cross-correlation 
 
 ### Calculate delay between 2 video files using cross-correlation calculation of their audio
 
@@ -24,3 +25,6 @@ This calculator will tell you exactly how much video #2 delays comparing to vide
 ### What this tool doesn't do:
 This tool does not merge the video files.
 For that, you have [MKVToolNix](https://mkvtoolnix.download).
+
+### Screenshot:
+![logo](https://raw.githubusercontent.com/yoavain/video-cross-correlation/master/VideoCrossCorrelation/VideoCrossCorrelation/Resources/Screenshot_1.PNG)
