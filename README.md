@@ -28,3 +28,8 @@ For that, you have [MKVToolNix](https://mkvtoolnix.download).
 
 ### Screenshot:
 ![logo](https://raw.githubusercontent.com/yoavain/video-cross-correlation/master/VideoCrossCorrelation/VideoCrossCorrelation/Resources/Screenshot_1.PNG)
+
+
+#### Credits:
+* [AudioCross](https://github.com/gautambabbar/AudioCross) by [gautambabbar](https://github.com/gautambabbar)
+* [FFmpeg](https://ffmpeg.org/)
