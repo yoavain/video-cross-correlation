@@ -110,6 +110,7 @@ namespace VideoCrossCorrelation
             this.video2AudioStreamComboBox.TabIndex = 5;
             this.metroToolTip.SetToolTip(this.video2AudioStreamComboBox, "Select audio stream for video #2");
             this.video2AudioStreamComboBox.Visible = false;
+            this.video2AudioStreamComboBox.DataSource = this._video2ComboBoxItemsBindingSource;
             // 
             // video1AudioStreamComboBox
             // 
@@ -122,6 +123,7 @@ namespace VideoCrossCorrelation
             this.video1AudioStreamComboBox.TabIndex = 4;
             this.metroToolTip.SetToolTip(this.video1AudioStreamComboBox, "Select audio stream for video #1");
             this.video1AudioStreamComboBox.Visible = false;
+            this.video1AudioStreamComboBox.DataSource = this._video1ComboBoxItemsBindingSource;
             // 
             // video2TextBox
             // 
