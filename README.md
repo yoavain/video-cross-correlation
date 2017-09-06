@@ -1,5 +1,5 @@
 ![](https://raw.githubusercontent.com/yoavain/video-cross-correlation/master/VideoCrossCorrelation/VideoCrossCorrelation/Resources/128x128.bmp)
-# video-cross-correlation 
+# video cross-correlation by audio
 
 ### Calculate delay between 2 video files using cross-correlation calculation of their audio
 
